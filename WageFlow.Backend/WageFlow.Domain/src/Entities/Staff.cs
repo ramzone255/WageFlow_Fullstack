@@ -18,6 +18,8 @@ namespace WageFlow.Domain.src.Entities
         public string email_staff { get; set; }
         public ICollection<User> User { get; set; }
         public ICollection<Work_Entry> Work_Entry { get; set; }
+        public ICollection<Payments> Payments { get; set; }
+        public ICollection<Salary_Payment> Salary_Payment { get; set; }
         [ForeignKey("Post")]
         public int id_post { get; set; }
         public Post Post { get; set; }

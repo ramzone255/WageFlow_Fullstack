@@ -14,8 +14,5 @@ namespace WageFlow.Domain.src.Entities
         public int id_payments_type {  get; set; }
         public string name_payments_type { get; set; }
         public ICollection<Payments> Payments { get; set; }
-        [ForeignKey("Staff")]
-        public int id_staff { get; set; }
-        public Staff Staff { get; set; }
     }
 }

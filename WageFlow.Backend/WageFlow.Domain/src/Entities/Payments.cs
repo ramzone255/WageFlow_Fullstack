@@ -18,5 +18,8 @@ namespace WageFlow.Domain.src.Entities
         [ForeignKey("Staff")]
         public int id_staff { get; set; }
         public Staff Staff { get; set; }
+        [ForeignKey("Payments_Type")]
+        public int id_payments_type { get; set; }
+        public Staff Payments_Type { get; set; }
     }
 }
