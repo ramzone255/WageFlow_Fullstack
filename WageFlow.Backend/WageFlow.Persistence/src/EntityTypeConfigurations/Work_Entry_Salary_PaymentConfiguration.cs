@@ -16,6 +16,8 @@ namespace WageFlow.Persistence.src.EntityTypeConfigurations
         {
             builder.HasKey(ent => ent.id_work_entry_salary_payment);
             builder.HasIndex(ent => ent.id_work_entry_salary_payment).IsUnique();
+            //builder.Property(ent => ent.id_work_entry);
+            //builder.Property(ent => ent.id_salary_payment);
             builder.HasOne(ent => ent.Work_Entry)
                 .WithMany(ent => ent.Work_Entry_Salary_Payment)
                 .HasForeignKey(ent => ent.id_work_entry)

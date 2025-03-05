@@ -13,10 +13,10 @@ namespace WageFlow.Domain.src.Entities
         [Key]
         public int id_salary_payment_payments { get; set; }
         [ForeignKey("Payments")]
-        public int id_payments { get; set; }
+        public int? id_payments { get; set; }
         public Payments Payments { get; set; }
         [ForeignKey("Salary_Payment")]
-        public int id_salary_payment { get; set; }
+        public int? id_salary_payment { get; set; }
         public Salary_Payment Salary_Payment { get; set; }
     }
 }

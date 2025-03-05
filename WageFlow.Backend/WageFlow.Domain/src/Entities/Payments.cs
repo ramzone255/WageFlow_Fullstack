@@ -20,6 +20,6 @@ namespace WageFlow.Domain.src.Entities
         public Staff Staff { get; set; }
         [ForeignKey("Payments_Type")]
         public int id_payments_type { get; set; }
-        public Staff Payments_Type { get; set; }
+        public Payments_Type Payments_Type { get; set; }
     }
 }
