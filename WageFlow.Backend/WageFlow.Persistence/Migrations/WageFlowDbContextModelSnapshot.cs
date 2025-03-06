@@ -39,6 +39,9 @@ namespace WageFlow.Persistence.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<DateOnly>("date_payments")
+                        .HasColumnType("date");
+
                     b.Property<int>("id_payments_type")
                         .HasColumnType("int");
 

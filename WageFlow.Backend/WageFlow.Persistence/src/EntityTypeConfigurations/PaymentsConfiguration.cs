@@ -17,6 +17,7 @@ namespace WageFlow.Persistence.src.EntityTypeConfigurations
             builder.HasIndex(ent => ent.id_payments).IsUnique();
             builder.Property(ent => ent.amount_payments).HasMaxLength(20);
             builder.Property(ent => ent.comment).HasMaxLength(50);
+            builder.Property(ent => ent.date_payments);
             builder.HasOne(ent => ent.Staff)
                 .WithMany(ent => ent.Payments)
                 .HasForeignKey(ent => ent.id_staff)

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WageFlow.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class Intialize : Migration
+    public partial class Initialize : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -82,6 +82,7 @@ namespace WageFlow.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     amount_payments = table.Column<float>(type: "real", maxLength: 20, nullable: false),
                     comment = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    date_payments = table.Column<DateOnly>(type: "date", nullable: false),
                     id_staff = table.Column<int>(type: "int", nullable: false),
                     id_payments_type = table.Column<int>(type: "int", nullable: false)
                 },

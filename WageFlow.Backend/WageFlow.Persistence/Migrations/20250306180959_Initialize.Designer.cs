@@ -12,8 +12,8 @@ using WageFlow.Persistence.src.Data;
 namespace WageFlow.Persistence.Migrations
 {
     [DbContext(typeof(WageFlowDbContext))]
-    [Migration("20250305141043_Intialize2")]
-    partial class Intialize2
+    [Migration("20250306180959_Initialize")]
+    partial class Initialize
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,6 +41,9 @@ namespace WageFlow.Persistence.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateOnly>("date_payments")
+                        .HasColumnType("date");
 
                     b.Property<int>("id_payments_type")
                         .HasColumnType("int");
@@ -138,10 +141,10 @@ namespace WageFlow.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id_salary_payment_payments"));
 
-                    b.Property<int>("id_payments")
+                    b.Property<int?>("id_payments")
                         .HasColumnType("int");
 
-                    b.Property<int>("id_salary_payment")
+                    b.Property<int?>("id_salary_payment")
                         .HasColumnType("int");
 
                     b.HasKey("id_salary_payment_payments");
@@ -269,10 +272,10 @@ namespace WageFlow.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id_work_entry_salary_payment"));
 
-                    b.Property<int>("id_salary_payment")
+                    b.Property<int?>("id_salary_payment")
                         .HasColumnType("int");
 
-                    b.Property<int>("id_work_entry")
+                    b.Property<int?>("id_work_entry")
                         .HasColumnType("int");
 
                     b.HasKey("id_work_entry_salary_payment");
@@ -346,15 +349,11 @@ namespace WageFlow.Persistence.Migrations
                 {
                     b.HasOne("WageFlow.Domain.src.Entities.Payments", "Payments")
                         .WithMany("Salary_Payment_Payments")
-                        .HasForeignKey("id_payments")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("id_payments");
 
                     b.HasOne("WageFlow.Domain.src.Entities.Salary_Payment", "Salary_Payment")
                         .WithMany("Salary_Payment_Payments")
-                        .HasForeignKey("id_salary_payment")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("id_salary_payment");
 
                     b.Navigation("Payments");
 
@@ -406,15 +405,11 @@ namespace WageFlow.Persistence.Migrations
                 {
                     b.HasOne("WageFlow.Domain.src.Entities.Salary_Payment", "Salary_Payment")
                         .WithMany("Work_Entry_Salary_Payment")
-                        .HasForeignKey("id_salary_payment")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("id_salary_payment");
 
                     b.HasOne("WageFlow.Domain.src.Entities.Work_Entry", "Work_Entry")
                         .WithMany("Work_Entry_Salary_Payment")
-                        .HasForeignKey("id_work_entry")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("id_work_entry");
 
                     b.Navigation("Salary_Payment");
 

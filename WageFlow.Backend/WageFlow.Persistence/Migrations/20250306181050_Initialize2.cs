@@ -5,7 +5,7 @@
 namespace WageFlow.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class Intialize2 : Migration
+    public partial class Initialize2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
