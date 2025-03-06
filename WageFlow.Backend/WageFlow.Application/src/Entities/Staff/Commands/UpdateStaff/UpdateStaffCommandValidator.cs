@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace WageFlow.Application.src.Entities.Staff.Commands.UpdateStaff
 {
-    public class UpdateStaffCommandValidator : AbstractValidator<UpdateStaffCommand>
+    public class UpdateStaffCommandValidator
+        : AbstractValidator<UpdateStaffCommand>
     {
         public UpdateStaffCommandValidator()
         {

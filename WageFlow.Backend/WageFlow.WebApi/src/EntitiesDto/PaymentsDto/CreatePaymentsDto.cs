@@ -10,7 +10,6 @@ namespace WageFlow.WebApi.src.EntitiesDto.PaymentsDto
     {
         public float amount_payments { get; set; }
         public string comment { get; set; }
-        public DateOnly date_payments { get; set; }
         public int id_staff { get; set; }
         public int id_payments_type { get; set; }
 
@@ -21,8 +20,6 @@ namespace WageFlow.WebApi.src.EntitiesDto.PaymentsDto
                 opt => opt.MapFrom(entity => entity.amount_payments))
                 .ForMember(entityDto => entityDto.comment,
                 opt => opt.MapFrom(entity => entity.comment))
-                .ForMember(entityDto => entityDto.date_payments,
-                opt => opt.MapFrom(entity => entity.date_payments))
                 .ForMember(entityDto => entityDto.id_staff,
                 opt => opt.MapFrom(entity => entity.id_staff))
                 .ForMember(entityDto => entityDto.id_payments_type,

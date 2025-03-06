@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace WageFlow.Application.src.Entities.Staff.Queries.GetStaffList
 {
-    public class GetStaffListQueryValidator : AbstractValidator<GetStaffListQuery>
+    public class GetStaffListQueryValidator
+        : AbstractValidator<GetStaffListQuery>
     {
         public GetStaffListQueryValidator()
         {

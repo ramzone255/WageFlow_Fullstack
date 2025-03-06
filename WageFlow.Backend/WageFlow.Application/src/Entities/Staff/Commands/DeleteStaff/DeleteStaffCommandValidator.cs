@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace WageFlow.Application.src.Entities.Staff.Commands.DeleteStaff
 {
-    public class DeleteStaffCommandValidator : AbstractValidator<DeleteStaffCommand>
+    public class DeleteStaffCommandValidator
+        : AbstractValidator<DeleteStaffCommand>
     {
         public DeleteStaffCommandValidator()
         {

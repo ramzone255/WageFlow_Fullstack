@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace WageFlow.Application.src.Entities.Staff.Commands.CreateStaff
 {
-    public class CreateStaffCommandValidator : AbstractValidator<CreateStaffCommand>
+    public class CreateStaffCommandValidator
+        : AbstractValidator<CreateStaffCommand>
     {
         public CreateStaffCommandValidator()
         {
