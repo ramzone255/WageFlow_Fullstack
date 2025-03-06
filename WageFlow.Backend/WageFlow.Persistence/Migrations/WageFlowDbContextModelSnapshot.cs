@@ -117,8 +117,14 @@ namespace WageFlow.Persistence.Migrations
                     b.Property<DateOnly>("date_salary_payment")
                         .HasColumnType("date");
 
+                    b.Property<DateOnly>("end_date_salary_payment")
+                        .HasColumnType("date");
+
                     b.Property<int>("id_staff")
                         .HasColumnType("int");
+
+                    b.Property<DateOnly>("start_date_salary_payment")
+                        .HasColumnType("date");
 
                     b.HasKey("id_salary_payment");
 

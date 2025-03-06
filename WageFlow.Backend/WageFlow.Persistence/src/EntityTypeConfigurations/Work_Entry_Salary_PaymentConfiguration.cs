@@ -22,12 +22,12 @@ namespace WageFlow.Persistence.src.EntityTypeConfigurations
                 .WithMany(ent => ent.Work_Entry_Salary_Payment)
                 .HasForeignKey(ent => ent.id_work_entry)
                 .OnDelete(DeleteBehavior.Cascade)
-                .IsRequired();
+                .IsRequired(false);
             builder.HasOne(ent => ent.Salary_Payment)
                 .WithMany(ent => ent.Work_Entry_Salary_Payment)
                 .HasForeignKey(ent => ent.id_salary_payment)
                 .OnDelete(DeleteBehavior.Cascade)
-                .IsRequired();
+                .IsRequired(false);
         }
     }
 }

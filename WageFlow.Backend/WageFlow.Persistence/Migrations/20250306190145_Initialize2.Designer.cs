@@ -12,7 +12,7 @@ using WageFlow.Persistence.src.Data;
 namespace WageFlow.Persistence.Migrations
 {
     [DbContext(typeof(WageFlowDbContext))]
-    [Migration("20250306181050_Initialize2")]
+    [Migration("20250306190145_Initialize2")]
     partial class Initialize2
     {
         /// <inheritdoc />
@@ -120,8 +120,14 @@ namespace WageFlow.Persistence.Migrations
                     b.Property<DateOnly>("date_salary_payment")
                         .HasColumnType("date");
 
+                    b.Property<DateOnly>("end_date_salary_payment")
+                        .HasColumnType("date");
+
                     b.Property<int>("id_staff")
                         .HasColumnType("int");
+
+                    b.Property<DateOnly>("start_date_salary_payment")
+                        .HasColumnType("date");
 
                     b.HasKey("id_salary_payment");
 

@@ -110,6 +110,8 @@ namespace WageFlow.Persistence.Migrations
                     id_salary_payment = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     amount_salary_payment = table.Column<float>(type: "real", maxLength: 20, nullable: false),
+                    start_date_salary_payment = table.Column<DateOnly>(type: "date", nullable: false),
+                    end_date_salary_payment = table.Column<DateOnly>(type: "date", nullable: false),
                     date_salary_payment = table.Column<DateOnly>(type: "date", nullable: false),
                     id_staff = table.Column<int>(type: "int", nullable: false)
                 },
