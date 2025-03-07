@@ -17,8 +17,6 @@ namespace WageFlow.Application.src.Entities.Payments.Commands.CreatePayments
             RuleFor(createEntityCommand =>
             createEntityCommand.comment).MaximumLength(50).NotEmpty();
             RuleFor(createEntityCommand =>
-            createEntityCommand.date_payments).NotEmpty();
-            RuleFor(createEntityCommand =>
             createEntityCommand.id_staff).NotEmpty();
             RuleFor(createEntityCommand =>
             createEntityCommand.id_payments_type).NotEmpty();

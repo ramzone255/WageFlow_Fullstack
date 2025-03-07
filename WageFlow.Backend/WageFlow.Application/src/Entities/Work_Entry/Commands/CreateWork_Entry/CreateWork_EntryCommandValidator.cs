@@ -15,8 +15,6 @@ namespace WageFlow.Application.src.Entities.Work_Entry.Commands.CreateWork_Entry
             RuleFor(createEntityCommand =>
             createEntityCommand.quantity_work_entry).NotEmpty();
             RuleFor(createEntityCommand =>
-            createEntityCommand.date_work_entry).NotEmpty();
-            RuleFor(createEntityCommand =>
             createEntityCommand.id_staff).NotEmpty();
             RuleFor(createEntityCommand =>
             createEntityCommand.id_work_type).NotEmpty();

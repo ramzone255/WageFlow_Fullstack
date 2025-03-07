@@ -10,7 +10,6 @@ namespace WageFlow.Application.src.Entities.Work_Entry.Commands.CreateWork_Entry
     public class CreateWork_EntryCommand : IRequest<int>
     {
         public int quantity_work_entry { get; set; }
-        public DateOnly date_work_entry { get; set; }
         public int id_staff { get; set; }
         public int id_work_type { get; set; }
     }

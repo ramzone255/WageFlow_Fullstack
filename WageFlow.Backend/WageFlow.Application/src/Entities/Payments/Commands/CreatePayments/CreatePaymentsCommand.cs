@@ -11,7 +11,6 @@ namespace WageFlow.Application.src.Entities.Payments.Commands.CreatePayments
     {
         public float amount_payments { get; set; }
         public string comment { get; set; }
-        public DateOnly date_payments { get; set; }
         public int id_staff { get; set; }
         public int id_payments_type { get; set; }
     }
