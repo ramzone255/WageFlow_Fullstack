@@ -8,6 +8,9 @@ using WageFlow.Persistence.src.Data;
 using WageFlow.Application.src.Common.Dependencies;
 using WageFlow.Application.src.Interfaces;
 using WageFlow.WebApi.src.Middleware;
+using Serilog;
+using Serilog.Events;
+using TelegramSink;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +20,7 @@ builder.Services.AddAutoMapper(config =>
     config.AddProfile(new AssemblyMappingProfile(typeof(IWageFlowDbContext).Assembly));
 });
 
+builder.Services.AddSerilog();
 builder.Services.AddAplication();
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddControllers();
@@ -30,6 +34,13 @@ builder.Services.AddCors(options =>
         policy.AllowAnyOrigin();
     });
 });
+
+Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                .WriteTo.TeleSink(
+                telegramApiKey: "*key",
+                telegramChatId: "*id")
+                .CreateLogger();
 
 using (var scope = builder.Services.BuildServiceProvider().CreateScope())
 {
