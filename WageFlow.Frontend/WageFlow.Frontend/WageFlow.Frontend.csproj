@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="src\Images\Close_Img.png" />
+    <None Remove="src\Images\Logo_Img.png" />
+    <None Remove="src\Images\Roll_Up_Img.png" />
+    <None Remove="src\Images\SignInUser_Img.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="src\Files\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="src\Images\Close_Img.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="src\Images\Logo_Img.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="src\Images\Roll_Up_Img.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="src\Images\SignInUser_Img.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+</Project>

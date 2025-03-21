@@ -1,0 +1,37 @@
+﻿<Page x:Class="WageFlow.Frontend.src.Pages.UserPages.SignInPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WageFlow.Frontend.src.Pages.UserPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="403" d:DesignWidth="800"
+      Title="SignInPage">
+
+    <Grid>
+        <StackPanel Background="White">
+            <StackPanel Width="400" Margin="0,50,0,0">
+                <Label FontSize="20" Width="175" HorizontalAlignment="Left"
+                                FontStyle="Italic"
+                                FontWeight="Heavy"
+                                Foreground="#533840">User Name:</Label>
+                <TextBox Height="30" Width="200" Margin="150,-35,0,0" Name="TBoxUserName"/>
+            </StackPanel>
+            <StackPanel Width="400" Margin="0,0,0,0">
+                <Label FontSize="20" Width="175" HorizontalAlignment="Left"
+                    FontStyle="Italic"
+                    FontWeight="Heavy"
+                    Foreground="#533840">User Password:</Label>
+                <TextBox Height="30" Width="200" Margin="150,-35,0,0" Name="TBoxUserPassword"/>
+            </StackPanel>
+            <Button Height="50" Width="50" Background="Transparent" Margin="0,20,0,0" Click="SignInClick">
+                <Image Source="/src/Images/SignInUser_Img.png"/>
+                <Button.ToolTip>
+                    <ToolTip Height="30" Style="{StaticResource RoundToolsTemplate}">
+                        ㅤㅤВойтиㅤ
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Page>
