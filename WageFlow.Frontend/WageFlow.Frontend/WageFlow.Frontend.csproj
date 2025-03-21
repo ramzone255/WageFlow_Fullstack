@@ -14,7 +14,9 @@
     <None Remove="src\Images\Delete_Img.png" />
     <None Remove="src\Images\Logo_Img.png" />
     <None Remove="src\Images\Payments_Img.png" />
+    <None Remove="src\Images\Return_Img.png" />
     <None Remove="src\Images\Roll_Up_Img.png" />
+    <None Remove="src\Images\Save_Img.png" />
     <None Remove="src\Images\SignInUser_Img.png" />
     <None Remove="src\Images\SPP_Img.png" />
     <None Remove="src\Images\SPWE_Img.png" />
@@ -45,7 +47,13 @@
     <Resource Include="src\Images\Payments_Img.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="src\Images\Return_Img.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="src\Images\Roll_Up_Img.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="src\Images\Save_Img.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="src\Images\SignInUser_Img.png">

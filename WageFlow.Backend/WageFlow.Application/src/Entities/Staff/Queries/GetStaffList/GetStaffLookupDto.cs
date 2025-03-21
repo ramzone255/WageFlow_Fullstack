@@ -16,6 +16,7 @@ namespace WageFlow.Application.src.Entities.Staff.Queries.GetStaffList
         public string patronymic_staff { get; set; }
         public string email_staff { get; set; }
         public int id_post { get; set; }
+        public string name_post { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -31,7 +32,9 @@ namespace WageFlow.Application.src.Entities.Staff.Queries.GetStaffList
                 .ForMember(noteDto => noteDto.email_staff,
                 opt => opt.MapFrom(note => note.email_staff))
                 .ForMember(noteDto => noteDto.id_post,
-                opt => opt.MapFrom(note => note.id_post));
+                opt => opt.MapFrom(note => note.id_post))
+                .ForMember(noteDto => noteDto.name_post,
+                opt => opt.MapFrom(note => note.Post.name_post));
         }
 
     }

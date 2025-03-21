@@ -7,6 +7,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using WageFlow.Frontend.src.Data.Entities.Salary_Payment;
+using WageFlow.Frontend.src.Data.Entities.Staff;
 using WageFlow.Frontend.src.Data.Entities.User;
 
 namespace WageFlow.Frontend.src.Data.Services
@@ -45,5 +46,36 @@ namespace WageFlow.Frontend.src.Data.Services
             return result?.salary_Payment ?? new List<Salary_Payment>();
 
         }
+
+        public async Task CreateSalary_Payment(Salary_Payment salary_Payment)
+        {
+            var response = await _httpClient.PostAsJsonAsync($"api/Salary_Payment/Create", salary_Payment);
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task UpdateSalary_Payment(Salary_Payment salary_Payment)
+        {
+            var response = await _httpClient.PutAsJsonAsync($"api/Salary_Payment/Update/{salary_Payment.id_salary_payment}", salary_Payment);
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task DeleteSalary_Payment(int id_salary_payment)
+        {
+            var response = await _httpClient.DeleteAsync($"api/Salary_Payment/Delete/{id_salary_payment}");
+            response.EnsureSuccessStatusCode();
+        }
+
+        // Staff
+
+        public async Task<List<Staff>> GetStaffList()
+        {
+            var response = await _httpClient.GetAsync("api/Staff/List");
+            response.EnsureSuccessStatusCode();
+
+            var result = await response.Content.ReadFromJsonAsync<StaffContain>();
+            return result?.staff ?? new List<Staff>();
+
+        }
+
     }
 }

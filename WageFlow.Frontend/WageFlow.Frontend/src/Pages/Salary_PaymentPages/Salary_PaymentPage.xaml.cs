@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WageFlow.Frontend.src.Data.Entities.Salary_Payment;
+using WageFlow.Frontend.src.Data.Entities.Staff;
 using WageFlow.Frontend.src.Data.Entities.User;
 using WageFlow.Frontend.src.Data.Services;
 
@@ -43,7 +44,7 @@ namespace WageFlow.Frontend.src.Pages.Salary_PaymentPages
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка загрузки сотрудников: {ex.Message}");
+                MessageBox.Show($"Ошибка загрузки отчетов: {ex.Message}");
             }
         }
 
@@ -64,17 +65,44 @@ namespace WageFlow.Frontend.src.Pages.Salary_PaymentPages
 
         private void AddClick(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new Salary_PaymentCommandsPage());
         }
 
         private void UpdateClick(object sender, RoutedEventArgs e)
         {
-
+            if (Salary_PaymentListView.SelectedItem is Salary_Payment selectedSalary_Payment)
+            {
+                NavigationService.Navigate(new Salary_PaymentCommandsPage(selectedSalary_Payment));
+            }
+            else
+            {
+                MessageBox.Show("Выберите отчет для редактирования");
+            }
         }
 
-        private void DeleteClick(object sender, RoutedEventArgs e)
+        private async void DeleteClick(object sender, RoutedEventArgs e)
         {
-
+            if (Salary_PaymentListView.SelectedItem is Salary_Payment selectedSalary_Payment)
+            {
+                var result = MessageBox.Show($"Вы уверены, что хотите удалить отчет по {selectedSalary_Payment.lastname_staff} {selectedSalary_Payment.amount_salary_payment}?", "Подтверждение удаления", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        await _apiService.DeleteSalary_Payment(selectedSalary_Payment.id_salary_payment);
+                        MessageBox.Show("Отчет успешно удален.");
+                        await LoadSalary_Payment();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ошибка при удалении отчета: {ex.Message}");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите отчет для удаления.");
+            }
         }
 
         private void Salary_Payment_PaymentsClick(object sender, RoutedEventArgs e)
