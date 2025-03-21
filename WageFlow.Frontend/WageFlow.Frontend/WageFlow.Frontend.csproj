@@ -9,27 +9,64 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="src\Images\Add_Img.png" />
     <None Remove="src\Images\Close_Img.png" />
+    <None Remove="src\Images\Delete_Img.png" />
     <None Remove="src\Images\Logo_Img.png" />
+    <None Remove="src\Images\Payments_Img.png" />
     <None Remove="src\Images\Roll_Up_Img.png" />
     <None Remove="src\Images\SignInUser_Img.png" />
+    <None Remove="src\Images\SPP_Img.png" />
+    <None Remove="src\Images\SPWE_Img.png" />
+    <None Remove="src\Images\Staff_Img.png" />
+    <None Remove="src\Images\Update_Img.png" />
+    <None Remove="src\Images\Work_Entry_Img.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="src\Files\" />
+    <Folder Include="src\Pages\PaymentsPages\" />
+    <Folder Include="src\Pages\Work_EntryPages\" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="src\Images\Add_Img.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="src\Images\Close_Img.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="src\Images\Delete_Img.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="src\Images\Logo_Img.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="src\Images\Payments_Img.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="src\Images\Roll_Up_Img.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="src\Images\SignInUser_Img.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="src\Images\SPP_Img.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="src\Images\SPWE_Img.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="src\Images\Staff_Img.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="src\Images\Work_Entry_Img.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="src\Images\Update_Img.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

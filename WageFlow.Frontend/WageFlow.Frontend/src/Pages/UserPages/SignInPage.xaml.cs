@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WageFlow.Frontend.src.Data.Entities.User;
 using WageFlow.Frontend.src.Data.Services;
-using WageFlow.Frontend.src.Pages.Salary_Payment;
+using WageFlow.Frontend.src.Pages.Salary_PaymentPages;
 
 namespace WageFlow.Frontend.src.Pages.UserPages
 {

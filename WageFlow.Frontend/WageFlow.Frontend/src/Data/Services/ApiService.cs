@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
+using WageFlow.Frontend.src.Data.Entities.Salary_Payment;
 using WageFlow.Frontend.src.Data.Entities.User;
 
 namespace WageFlow.Frontend.src.Data.Services
@@ -30,6 +32,18 @@ namespace WageFlow.Frontend.src.Data.Services
                 return await response.Content.ReadFromJsonAsync<User>();
             }
             return null;
+        }
+
+        // Salary_Payment
+
+        public async Task<List<Salary_Payment>> GetSalary_PaymentList()
+        {
+            var response = await _httpClient.GetAsync("api/Salary_Payment/List");
+            response.EnsureSuccessStatusCode();
+
+            var result = await response.Content.ReadFromJsonAsync<Salary_PaymentContain>();
+            return result?.salary_Payment ?? new List<Salary_Payment>();
+
         }
     }
 }

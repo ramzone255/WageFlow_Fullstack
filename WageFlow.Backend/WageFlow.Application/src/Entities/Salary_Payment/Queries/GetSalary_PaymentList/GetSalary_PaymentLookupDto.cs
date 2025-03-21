@@ -17,6 +17,9 @@ namespace WageFlow.Application.src.Entities.Salary_Payment.Queries.GetSalary_Pay
         public DateOnly end_date_salary_payment { get; set; }
         public DateOnly date_salary_payment { get; set; }
         public int id_staff { get; set; }
+        public string lastname_staff { get; set; }
+        public string name_staff { get; set; }
+        public string patronymic_staff { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -32,7 +35,13 @@ namespace WageFlow.Application.src.Entities.Salary_Payment.Queries.GetSalary_Pay
                 .ForMember(noteDto => noteDto.date_salary_payment,
                 opt => opt.MapFrom(note => note.date_salary_payment))
                 .ForMember(noteDto => noteDto.id_staff,
-                opt => opt.MapFrom(note => note.id_staff));
+                opt => opt.MapFrom(note => note.id_staff))
+                .ForMember(noteDto => noteDto.lastname_staff,
+                opt => opt.MapFrom(note => note.Staff.lastname_staff))
+                .ForMember(noteDto => noteDto.name_staff,
+                opt => opt.MapFrom(note => note.Staff.name_staff))
+                .ForMember(noteDto => noteDto.patronymic_staff,
+                opt => opt.MapFrom(note => note.Staff.patronymic_staff));
         }
     }
 }
