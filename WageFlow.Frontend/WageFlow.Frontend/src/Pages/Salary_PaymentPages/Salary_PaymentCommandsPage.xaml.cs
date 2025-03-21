@@ -76,7 +76,7 @@ namespace WageFlow.Frontend.src.Pages.Salary_PaymentPages
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при сохранеии сотрудника: {ex.Message}");
+                MessageBox.Show($"Ошибка при сохранении отчета: {ex.Message}");
             }
         }
 
