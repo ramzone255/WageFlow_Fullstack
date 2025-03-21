@@ -6,6 +6,8 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
+using WageFlow.Frontend.src.Data.Entities.Payments;
+using WageFlow.Frontend.src.Data.Entities.Payments_Type;
 using WageFlow.Frontend.src.Data.Entities.Post;
 using WageFlow.Frontend.src.Data.Entities.Salary_Payment;
 using WageFlow.Frontend.src.Data.Entities.Staff;
@@ -107,5 +109,48 @@ namespace WageFlow.Frontend.src.Data.Services
             return result?.post ?? new List<Post>();
 
         }
+
+        // Payments
+
+        public async Task<List<Payments>> GetPaymentsList()
+        {
+            var response = await _httpClient.GetAsync("api/Payments/List");
+            response.EnsureSuccessStatusCode();
+
+            var result = await response.Content.ReadFromJsonAsync<PaymentsContain>();
+            return result?.payments ?? new List<Payments>();
+
+        }
+
+        public async Task CreatePayments(Payments payments)
+        {
+            var response = await _httpClient.PostAsJsonAsync($"api/Payments/Create", payments);
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task UpdatePayments(Payments payments)
+        {
+            var response = await _httpClient.PutAsJsonAsync($"api/Payments/Update/{payments.id_payments}", payments);
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task DeletePayments(int id_payments)
+        {
+            var response = await _httpClient.DeleteAsync($"api/Payments/Delete/{id_payments}");
+            response.EnsureSuccessStatusCode();
+        }
+
+        // Payments_Type
+
+        public async Task<List<Payments_Type>> GetPayments_TypeList()
+        {
+            var response = await _httpClient.GetAsync("api/Payments_Type/List");
+            response.EnsureSuccessStatusCode();
+
+            var result = await response.Content.ReadFromJsonAsync<Payments_TypeContain>();
+            return result?.payments_Type ?? new List<Payments_Type>();
+
+        }
+
     }
 }

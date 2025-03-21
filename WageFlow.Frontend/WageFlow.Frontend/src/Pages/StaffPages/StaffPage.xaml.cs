@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using WageFlow.Frontend.src.Data.Entities.Salary_Payment;
 using WageFlow.Frontend.src.Data.Entities.Staff;
 using WageFlow.Frontend.src.Data.Services;
+using WageFlow.Frontend.src.Pages.PaymentsPages;
 using WageFlow.Frontend.src.Pages.Salary_PaymentPages;
 
 namespace WageFlow.Frontend.src.Pages.StaffPages
@@ -53,7 +54,7 @@ namespace WageFlow.Frontend.src.Pages.StaffPages
 
         private void PaymentsClick(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new PaymentsPage());
         }
 
         private void Salary_PaymentClick(object sender, RoutedEventArgs e)
