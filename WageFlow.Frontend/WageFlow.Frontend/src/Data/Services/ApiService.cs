@@ -12,6 +12,8 @@ using WageFlow.Frontend.src.Data.Entities.Post;
 using WageFlow.Frontend.src.Data.Entities.Salary_Payment;
 using WageFlow.Frontend.src.Data.Entities.Staff;
 using WageFlow.Frontend.src.Data.Entities.User;
+using WageFlow.Frontend.src.Data.Entities.Work_Entry;
+using WageFlow.Frontend.src.Data.Entities.Work_Type;
 
 namespace WageFlow.Frontend.src.Data.Services
 {
@@ -149,6 +151,48 @@ namespace WageFlow.Frontend.src.Data.Services
 
             var result = await response.Content.ReadFromJsonAsync<Payments_TypeContain>();
             return result?.payments_Type ?? new List<Payments_Type>();
+
+        }
+
+        // Work_Entry
+
+        public async Task<List<Work_Entry>> GetWork_EntryList()
+        {
+            var response = await _httpClient.GetAsync("api/Work_Entry/List");
+            response.EnsureSuccessStatusCode();
+
+            var result = await response.Content.ReadFromJsonAsync<Work_EntryContain>();
+            return result?.work_Entry ?? new List<Work_Entry>();
+
+        }
+
+        public async Task CreateWork_Entry(Work_Entry work_Entry)
+        {
+            var response = await _httpClient.PostAsJsonAsync($"api/Work_Entry/Create", work_Entry);
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task UpdateWork_Entry(Work_Entry work_Entry)
+        {
+            var response = await _httpClient.PutAsJsonAsync($"api/Work_Entry/Update/{work_Entry.id_work_entry}", work_Entry);
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task DeleteWork_Entry(int id_work_entry)
+        {
+            var response = await _httpClient.DeleteAsync($"api/Work_Entry/Delete/{id_work_entry}");
+            response.EnsureSuccessStatusCode();
+        }
+
+        // Work_Type
+
+        public async Task<List<Work_Type>> GetWork_TypeList()
+        {
+            var response = await _httpClient.GetAsync("api/Work_Type/List");
+            response.EnsureSuccessStatusCode();
+
+            var result = await response.Content.ReadFromJsonAsync<Work_TypeContain>();
+            return result?.work_Type ?? new List<Work_Type>();
 
         }
 

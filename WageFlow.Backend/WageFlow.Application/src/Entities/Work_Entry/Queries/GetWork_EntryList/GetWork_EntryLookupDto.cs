@@ -15,7 +15,12 @@ namespace WageFlow.Application.src.Entities.Work_Entry.Queries.GetWork_EntryList
         public int quantity_work_entry { get; set; }
         public DateOnly date_work_entry { get; set; }
         public int id_staff { get; set; }
+        public string lastname_staff { get; set; }
+        public string name_staff { get; set; }
+        public string patronymic_staff { get; set; }
         public int id_work_type { get; set; }
+        public string name_work_type { get; set; }
+        public float amount_work_type { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -28,8 +33,18 @@ namespace WageFlow.Application.src.Entities.Work_Entry.Queries.GetWork_EntryList
                 opt => opt.MapFrom(note => note.date_work_entry))
                 .ForMember(noteDto => noteDto.id_staff,
                 opt => opt.MapFrom(note => note.id_staff))
+                .ForMember(noteDto => noteDto.lastname_staff,
+                opt => opt.MapFrom(note => note.Staff.lastname_staff))
+                .ForMember(noteDto => noteDto.name_staff,
+                opt => opt.MapFrom(note => note.Staff.name_staff))
+                .ForMember(noteDto => noteDto.patronymic_staff,
+                opt => opt.MapFrom(note => note.Staff.patronymic_staff))
                 .ForMember(noteDto => noteDto.id_work_type,
-                opt => opt.MapFrom(note => note.id_work_type));
+                opt => opt.MapFrom(note => note.id_work_type))
+                .ForMember(noteDto => noteDto.name_work_type,
+                opt => opt.MapFrom(note => note.Work_Type.name_work_type))
+                .ForMember(noteDto => noteDto.amount_work_type,
+                opt => opt.MapFrom(note => note.Work_Type.amount_work_type));
         }
     }
 }

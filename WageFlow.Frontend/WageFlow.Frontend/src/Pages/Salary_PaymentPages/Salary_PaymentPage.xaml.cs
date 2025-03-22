@@ -19,6 +19,7 @@ using WageFlow.Frontend.src.Data.Entities.User;
 using WageFlow.Frontend.src.Data.Services;
 using WageFlow.Frontend.src.Pages.PaymentsPages;
 using WageFlow.Frontend.src.Pages.StaffPages;
+using WageFlow.Frontend.src.Pages.Work_EntryPages;
 
 namespace WageFlow.Frontend.src.Pages.Salary_PaymentPages
 {
@@ -52,7 +53,7 @@ namespace WageFlow.Frontend.src.Pages.Salary_PaymentPages
 
         private void Work_EntryClick(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new Work_EntryPage());
         }
 
         private void PaymentsClick(object sender, RoutedEventArgs e)
