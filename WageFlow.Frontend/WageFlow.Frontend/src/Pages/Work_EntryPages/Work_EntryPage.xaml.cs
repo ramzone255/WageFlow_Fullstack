@@ -104,10 +104,5 @@ namespace WageFlow.Frontend.src.Pages.Work_EntryPages
                 MessageBox.Show("Выберите работу для удаления.");
             }
         }
-
-        private void Salary_Payment_Work_Entry_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

@@ -17,11 +17,9 @@ namespace WageFlow.Persistence.src.Data
         public DbSet<Payments_Type> Payments_Type { get; set; }
         public DbSet<Post> Post { get; set; }
         public DbSet<Salary_Payment> Salary_Payment { get; set; }
-        public DbSet<Salary_Payment_Payments> Salary_Payment_Payments { get; set; }
         public DbSet<Staff> Staff { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<Work_Entry> Work_Entry { get; set; }
-        public DbSet<Work_Entry_Salary_Payment> Work_Entry_Salary_Payment { get; set; }
         public DbSet<Work_Type> Work_Type { get; set; }
 
         public WageFlowDbContext(DbContextOptions<WageFlowDbContext> options)
@@ -34,11 +32,9 @@ namespace WageFlow.Persistence.src.Data
             builder.ApplyConfiguration(new Payments_TypeConfiguration());
             builder.ApplyConfiguration(new PostConfiguration());
             builder.ApplyConfiguration(new Salary_PaymentConfiguration());
-            builder.ApplyConfiguration(new Salary_Payment_PaymentsConfiguration());
             builder.ApplyConfiguration(new StaffConfiguration());
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new Work_EntryConfiguration());
-            builder.ApplyConfiguration(new Work_Entry_Salary_PaymentConfiguration());
             builder.ApplyConfiguration(new Work_TypeConfiguration());
             base.OnModelCreating(builder);
         }

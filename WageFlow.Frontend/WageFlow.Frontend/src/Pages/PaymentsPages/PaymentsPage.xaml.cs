@@ -104,10 +104,5 @@ namespace WageFlow.Frontend.src.Pages.PaymentsPages
                 MessageBox.Show("Выберите выплату для удаления.");
             }
         }
-
-        private void Salary_Payment_PaymentsClick(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

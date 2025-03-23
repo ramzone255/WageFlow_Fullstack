@@ -105,16 +105,6 @@
                         </Button.ToolTip>
                     </Button>
                 </StackPanel>
-                <StackPanel Width="362" Margin="0,-83,0,0" HorizontalAlignment="Right" Height="83">
-                    <Button x:Name="Salary_Payment_Payments" Height="50" Width="50" Background="Transparent" Margin="0,15,250,0" Click="Salary_Payment_PaymentsClick">
-                        <Image Source="/src/Images/SPP_Img.png"/>
-                        <Button.ToolTip>
-                            <ToolTip Height="30" Style="{StaticResource RoundToolsTemplate}">
-                                ㅤㅤРаспределение выплат
-                            </ToolTip>
-                        </Button.ToolTip>
-                    </Button>
-                </StackPanel>
             </StackPanel>
         </StackPanel>
     </Grid>

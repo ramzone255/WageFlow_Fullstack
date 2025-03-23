@@ -16,8 +16,6 @@ namespace WageFlow.Domain.src.Entities
         public DateOnly start_date_salary_payment { get; set; }
         public DateOnly end_date_salary_payment { get; set; }
         public DateOnly date_salary_payment { get; set; }
-        public ICollection<Work_Entry_Salary_Payment> Work_Entry_Salary_Payment { get; set; }
-        public ICollection<Salary_Payment_Payments> Salary_Payment_Payments { get; set; }
         [ForeignKey("Staff")]
         public int id_staff { get; set; }
         public Staff Staff { get; set; }

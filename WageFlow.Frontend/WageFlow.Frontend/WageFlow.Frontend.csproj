@@ -28,8 +28,6 @@
 
   <ItemGroup>
     <Folder Include="src\Files\" />
-    <Folder Include="src\Pages\Salary_Payment_PaymentsPages\" />
-    <Folder Include="src\Pages\Work_Entry_Salary_PaymentPages\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -12,8 +12,8 @@ using WageFlow.Persistence.src.Data;
 namespace WageFlow.Persistence.Migrations
 {
     [DbContext(typeof(WageFlowDbContext))]
-    [Migration("20250306190145_Initialize2")]
-    partial class Initialize2
+    [Migration("20250323170206_Initialize")]
+    partial class Initialize
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -139,32 +139,6 @@ namespace WageFlow.Persistence.Migrations
                     b.ToTable("Salary_Payment");
                 });
 
-            modelBuilder.Entity("WageFlow.Domain.src.Entities.Salary_Payment_Payments", b =>
-                {
-                    b.Property<int>("id_salary_payment_payments")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id_salary_payment_payments"));
-
-                    b.Property<int>("id_payments")
-                        .HasColumnType("int");
-
-                    b.Property<int>("id_salary_payment")
-                        .HasColumnType("int");
-
-                    b.HasKey("id_salary_payment_payments");
-
-                    b.HasIndex("id_payments");
-
-                    b.HasIndex("id_salary_payment");
-
-                    b.HasIndex("id_salary_payment_payments")
-                        .IsUnique();
-
-                    b.ToTable("Salary_Payment_Payments");
-                });
-
             modelBuilder.Entity("WageFlow.Domain.src.Entities.Staff", b =>
                 {
                     b.Property<int>("id_staff")
@@ -270,32 +244,6 @@ namespace WageFlow.Persistence.Migrations
                     b.ToTable("Work_Entry");
                 });
 
-            modelBuilder.Entity("WageFlow.Domain.src.Entities.Work_Entry_Salary_Payment", b =>
-                {
-                    b.Property<int>("id_work_entry_salary_payment")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id_work_entry_salary_payment"));
-
-                    b.Property<int>("id_salary_payment")
-                        .HasColumnType("int");
-
-                    b.Property<int>("id_work_entry")
-                        .HasColumnType("int");
-
-                    b.HasKey("id_work_entry_salary_payment");
-
-                    b.HasIndex("id_salary_payment");
-
-                    b.HasIndex("id_work_entry");
-
-                    b.HasIndex("id_work_entry_salary_payment")
-                        .IsUnique();
-
-                    b.ToTable("Work_Entry_Salary_Payment");
-                });
-
             modelBuilder.Entity("WageFlow.Domain.src.Entities.Work_Type", b =>
                 {
                     b.Property<int>("id_work_type")
@@ -351,25 +299,6 @@ namespace WageFlow.Persistence.Migrations
                     b.Navigation("Staff");
                 });
 
-            modelBuilder.Entity("WageFlow.Domain.src.Entities.Salary_Payment_Payments", b =>
-                {
-                    b.HasOne("WageFlow.Domain.src.Entities.Payments", "Payments")
-                        .WithMany("Salary_Payment_Payments")
-                        .HasForeignKey("id_payments")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WageFlow.Domain.src.Entities.Salary_Payment", "Salary_Payment")
-                        .WithMany("Salary_Payment_Payments")
-                        .HasForeignKey("id_salary_payment")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Payments");
-
-                    b.Navigation("Salary_Payment");
-                });
-
             modelBuilder.Entity("WageFlow.Domain.src.Entities.Staff", b =>
                 {
                     b.HasOne("WageFlow.Domain.src.Entities.Post", "Post")
@@ -411,30 +340,6 @@ namespace WageFlow.Persistence.Migrations
                     b.Navigation("Work_Type");
                 });
 
-            modelBuilder.Entity("WageFlow.Domain.src.Entities.Work_Entry_Salary_Payment", b =>
-                {
-                    b.HasOne("WageFlow.Domain.src.Entities.Salary_Payment", "Salary_Payment")
-                        .WithMany("Work_Entry_Salary_Payment")
-                        .HasForeignKey("id_salary_payment")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WageFlow.Domain.src.Entities.Work_Entry", "Work_Entry")
-                        .WithMany("Work_Entry_Salary_Payment")
-                        .HasForeignKey("id_work_entry")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Salary_Payment");
-
-                    b.Navigation("Work_Entry");
-                });
-
-            modelBuilder.Entity("WageFlow.Domain.src.Entities.Payments", b =>
-                {
-                    b.Navigation("Salary_Payment_Payments");
-                });
-
             modelBuilder.Entity("WageFlow.Domain.src.Entities.Payments_Type", b =>
                 {
                     b.Navigation("Payments");
@@ -443,13 +348,6 @@ namespace WageFlow.Persistence.Migrations
             modelBuilder.Entity("WageFlow.Domain.src.Entities.Post", b =>
                 {
                     b.Navigation("Staff");
-                });
-
-            modelBuilder.Entity("WageFlow.Domain.src.Entities.Salary_Payment", b =>
-                {
-                    b.Navigation("Salary_Payment_Payments");
-
-                    b.Navigation("Work_Entry_Salary_Payment");
                 });
 
             modelBuilder.Entity("WageFlow.Domain.src.Entities.Staff", b =>
@@ -461,11 +359,6 @@ namespace WageFlow.Persistence.Migrations
                     b.Navigation("User");
 
                     b.Navigation("Work_Entry");
-                });
-
-            modelBuilder.Entity("WageFlow.Domain.src.Entities.Work_Entry", b =>
-                {
-                    b.Navigation("Work_Entry_Salary_Payment");
                 });
 
             modelBuilder.Entity("WageFlow.Domain.src.Entities.Work_Type", b =>

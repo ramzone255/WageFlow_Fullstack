@@ -175,54 +175,6 @@ namespace WageFlow.Persistence.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Salary_Payment_Payments",
-                columns: table => new
-                {
-                    id_salary_payment_payments = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    id_payments = table.Column<int>(type: "int", nullable: true),
-                    id_salary_payment = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Salary_Payment_Payments", x => x.id_salary_payment_payments);
-                    table.ForeignKey(
-                        name: "FK_Salary_Payment_Payments_Payments_id_payments",
-                        column: x => x.id_payments,
-                        principalTable: "Payments",
-                        principalColumn: "id_payments");
-                    table.ForeignKey(
-                        name: "FK_Salary_Payment_Payments_Salary_Payment_id_salary_payment",
-                        column: x => x.id_salary_payment,
-                        principalTable: "Salary_Payment",
-                        principalColumn: "id_salary_payment");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Work_Entry_Salary_Payment",
-                columns: table => new
-                {
-                    id_work_entry_salary_payment = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    id_work_entry = table.Column<int>(type: "int", nullable: true),
-                    id_salary_payment = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Work_Entry_Salary_Payment", x => x.id_work_entry_salary_payment);
-                    table.ForeignKey(
-                        name: "FK_Work_Entry_Salary_Payment_Salary_Payment_id_salary_payment",
-                        column: x => x.id_salary_payment,
-                        principalTable: "Salary_Payment",
-                        principalColumn: "id_salary_payment");
-                    table.ForeignKey(
-                        name: "FK_Work_Entry_Salary_Payment_Work_Entry_id_work_entry",
-                        column: x => x.id_work_entry,
-                        principalTable: "Work_Entry",
-                        principalColumn: "id_work_entry");
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Payments_id_payments",
                 table: "Payments",
@@ -263,22 +215,6 @@ namespace WageFlow.Persistence.Migrations
                 column: "id_staff");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Salary_Payment_Payments_id_payments",
-                table: "Salary_Payment_Payments",
-                column: "id_payments");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Salary_Payment_Payments_id_salary_payment",
-                table: "Salary_Payment_Payments",
-                column: "id_salary_payment");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Salary_Payment_Payments_id_salary_payment_payments",
-                table: "Salary_Payment_Payments",
-                column: "id_salary_payment_payments",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Staff_id_post",
                 table: "Staff",
                 column: "id_post");
@@ -317,22 +253,6 @@ namespace WageFlow.Persistence.Migrations
                 column: "id_work_type");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Work_Entry_Salary_Payment_id_salary_payment",
-                table: "Work_Entry_Salary_Payment",
-                column: "id_salary_payment");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Work_Entry_Salary_Payment_id_work_entry",
-                table: "Work_Entry_Salary_Payment",
-                column: "id_work_entry");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Work_Entry_Salary_Payment_id_work_entry_salary_payment",
-                table: "Work_Entry_Salary_Payment",
-                column: "id_work_entry_salary_payment",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Work_Type_id_work_type",
                 table: "Work_Type",
                 column: "id_work_type",
@@ -343,19 +263,13 @@ namespace WageFlow.Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Salary_Payment_Payments");
-
-            migrationBuilder.DropTable(
-                name: "User");
-
-            migrationBuilder.DropTable(
-                name: "Work_Entry_Salary_Payment");
-
-            migrationBuilder.DropTable(
                 name: "Payments");
 
             migrationBuilder.DropTable(
                 name: "Salary_Payment");
+
+            migrationBuilder.DropTable(
+                name: "User");
 
             migrationBuilder.DropTable(
                 name: "Work_Entry");

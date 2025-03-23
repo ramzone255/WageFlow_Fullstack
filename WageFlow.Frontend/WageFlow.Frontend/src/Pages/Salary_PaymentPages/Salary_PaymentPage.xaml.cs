@@ -107,15 +107,5 @@ namespace WageFlow.Frontend.src.Pages.Salary_PaymentPages
                 MessageBox.Show("Выберите отчет для удаления.");
             }
         }
-
-        private void Salary_Payment_PaymentsClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Salary_Payment_Work_Entry_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
