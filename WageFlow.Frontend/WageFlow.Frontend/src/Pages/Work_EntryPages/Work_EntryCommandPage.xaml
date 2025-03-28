@@ -73,7 +73,7 @@ Foreground="#533840">Сотрудник:</Label>
                 <Label FontSize="20" Width="175" HorizontalAlignment="Left"
         FontStyle="Italic"
         FontWeight="Heavy"
-        Foreground="#533840">Тип выплаты:</Label>
+        Foreground="#533840">Тип работы:</Label>
                 <ComboBox SelectedValue="{Binding id_work_type}" Height="30" Width="200" 
               BorderThickness="2" 
               BorderBrush="Black" 
