@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WageFlow.Application", "Wag
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WageFlow.WebApi", "WageFlow.WebApi\WageFlow.WebApi.csproj", "{DF587E03-BB5A-4212-B998-44CBFFB799F4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WageFlow.Tests", "WageFlow.Tests\WageFlow.Tests.csproj", "{B50DAB44-4554-440D-BA16-67265EED9CE5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{DF587E03-BB5A-4212-B998-44CBFFB799F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF587E03-BB5A-4212-B998-44CBFFB799F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF587E03-BB5A-4212-B998-44CBFFB799F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B50DAB44-4554-440D-BA16-67265EED9CE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B50DAB44-4554-440D-BA16-67265EED9CE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B50DAB44-4554-440D-BA16-67265EED9CE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B50DAB44-4554-440D-BA16-67265EED9CE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +62,7 @@ Global
 		{FDF4646B-6965-4644-99E1-B1FA216D0A23} = {38873DF6-8E30-4492-B3AC-D501C447D37B}
 		{40632B88-FA91-428B-B5DE-B5F73B11ACC0} = {C4479F87-C82A-452A-A3FB-8A0A1C3595F8}
 		{DF587E03-BB5A-4212-B998-44CBFFB799F4} = {9226D1E2-39BF-46EA-89DA-F751D20F9832}
+		{B50DAB44-4554-440D-BA16-67265EED9CE5} = {13BA4121-BB00-403C-824B-7698C7D63542}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {08EAF2C9-3F43-4EC4-B982-9428A7425329}

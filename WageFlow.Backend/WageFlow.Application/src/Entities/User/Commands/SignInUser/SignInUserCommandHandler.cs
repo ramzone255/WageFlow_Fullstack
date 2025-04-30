@@ -14,10 +14,8 @@ namespace WageFlow.Application.src.Entities.User.Commands.SignInUser
         : IRequestHandler<SignInUserCommand, SignInUserCommandVm?>
     {
         private readonly IWageFlowDbContext _dbContext;
-        private readonly IMapper _mapper;
 
-        public SignInUserCommandHandler(IWageFlowDbContext dbContext,
-            IMapper mapper) => (_dbContext, _mapper) = (dbContext, mapper);
+        public SignInUserCommandHandler(IWageFlowDbContext dbContext) => _dbContext = dbContext;
         public async Task<SignInUserCommandVm?> Handle(SignInUserCommand request,
             CancellationToken cancellationToken)
         {
