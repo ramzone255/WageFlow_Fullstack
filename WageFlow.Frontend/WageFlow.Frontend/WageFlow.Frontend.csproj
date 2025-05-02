@@ -12,8 +12,10 @@
     <None Remove="src\Images\Add_Img.png" />
     <None Remove="src\Images\Close_Img.png" />
     <None Remove="src\Images\Delete_Img.png" />
+    <None Remove="src\Images\Excel.png" />
     <None Remove="src\Images\Logo_Img.png" />
     <None Remove="src\Images\Payments_Img.png" />
+    <None Remove="src\Images\PDF.png" />
     <None Remove="src\Images\Return_Img.png" />
     <None Remove="src\Images\Roll_Up_Img.png" />
     <None Remove="src\Images\Salary_Payment_Img.png" />
@@ -23,11 +25,18 @@
     <None Remove="src\Images\SPWE_Img.png" />
     <None Remove="src\Images\Staff_Img.png" />
     <None Remove="src\Images\Update_Img.png" />
+    <None Remove="src\Images\Word.png" />
     <None Remove="src\Images\Work_Entry_Img.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="src\Files\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1001" />
+    <PackageReference Include="Microsoft.Office.Interop.Word" Version="15.0.4797.1004" />
+    <PackageReference Include="MicrosoftOfficeCore" Version="15.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,10 +49,16 @@
     <Resource Include="src\Images\Delete_Img.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="src\Images\Excel.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="src\Images\Logo_Img.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="src\Images\Payments_Img.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="src\Images\PDF.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="src\Images\Return_Img.png">
@@ -68,6 +83,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="src\Images\Staff_Img.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="src\Images\Word.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="src\Images\Work_Entry_Img.png">
