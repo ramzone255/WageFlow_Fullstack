@@ -235,7 +235,7 @@ namespace WageFlow.Frontend.src.Pages.PaymentsPages
                 cellRange.Text = ProductCurrent.lastname_staff;
 
                 cellRange = paymentsTable.Cell(i + 2, 2).Range;
-                cellRange.Text = ProductCurrent.name_payments_type;
+                cellRange.Text = ProductCurrent.name_staff;
 
                 cellRange = paymentsTable.Cell(i + 2, 3).Range;
                 cellRange.Text = ProductCurrent.patronymic_staff;
@@ -310,7 +310,7 @@ namespace WageFlow.Frontend.src.Pages.PaymentsPages
                 cellRange.Text = ProductCurrent.lastname_staff;
 
                 cellRange = paymentsTable.Cell(i + 2, 2).Range;
-                cellRange.Text = ProductCurrent.name_payments_type;
+                cellRange.Text = ProductCurrent.name_staff;
 
                 cellRange = paymentsTable.Cell(i + 2, 3).Range;
                 cellRange.Text = ProductCurrent.patronymic_staff;

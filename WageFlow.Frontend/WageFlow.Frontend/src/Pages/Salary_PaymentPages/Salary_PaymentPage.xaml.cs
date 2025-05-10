@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WageFlow.Frontend.src.Data.Entities.Payments;
 using WageFlow.Frontend.src.Data.Entities.Salary_Payment;
 using WageFlow.Frontend.src.Data.Entities.Staff;
 using WageFlow.Frontend.src.Data.Entities.User;
@@ -20,6 +21,8 @@ using WageFlow.Frontend.src.Data.Services;
 using WageFlow.Frontend.src.Pages.PaymentsPages;
 using WageFlow.Frontend.src.Pages.StaffPages;
 using WageFlow.Frontend.src.Pages.Work_EntryPages;
+using Excel = Microsoft.Office.Interop.Excel;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace WageFlow.Frontend.src.Pages.Salary_PaymentPages
 {
@@ -106,6 +109,201 @@ namespace WageFlow.Frontend.src.Pages.Salary_PaymentPages
             {
                 MessageBox.Show("Выберите отчет для удаления.");
             }
+        }
+
+        private void ApplyFilters()
+        {
+            var filtered = _allSalary_Payment.AsEnumerable();
+
+            if (!string.IsNullOrWhiteSpace(TbSerch.Text))
+            {
+                filtered = filtered.Where(x => x.lastname_staff
+                    .IndexOf(TbSerch.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+            }
+
+            Salary_PaymentListView.ItemsSource = filtered.ToList();
+        }
+
+        private void TbSerch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ApplyFilters();
+        }
+
+        private void Clear_Click(object sender, RoutedEventArgs e)
+        {
+            TbSerch.Clear();
+            ApplyFilters();
+        }
+
+        private void ExcelClick(object sender, RoutedEventArgs e)
+        {
+            var ExcelApp = new Excel.Application();
+
+            Excel.Workbook wb = ExcelApp.Workbooks.Add();
+
+            Excel.Worksheet worksheet = (Excel.Worksheet)ExcelApp.Worksheets.Item[1];
+
+            int indexRows = 1;
+
+            worksheet.Cells[indexRows, 1] = "№";
+            worksheet.Cells[indexRows, 2] = "Фамилия";
+            worksheet.Cells[indexRows, 3] = "Имя";
+            worksheet.Cells[indexRows, 4] = "Отчество";
+            worksheet.Cells[indexRows, 5] = "Сумма выплаты";
+            worksheet.Cells[indexRows, 6] = "Дата выплаты";
+
+            var printItems = Salary_PaymentListView.Items;
+
+            foreach (Salary_Payment item in printItems)
+            {
+                worksheet.Cells[indexRows, 1] = indexRows - 1;
+                worksheet.Cells[indexRows, 2] = item.lastname_staff;
+                worksheet.Cells[indexRows, 3] = item.name_staff;
+                worksheet.Cells[indexRows, 4] = item.patronymic_staff;
+                worksheet.Cells[indexRows, 5] = item.amount_salary_payment;
+                worksheet.Cells[indexRows, 6] = item.date_salary_payment.ToString("dd.MM.yyyy");
+
+                indexRows++;
+            }
+            Excel.Range range = worksheet.Range[
+                worksheet.Cells[1, 1],
+                    worksheet.Cells[indexRows, 6]];
+
+            range.ColumnWidth = 20;
+
+            range.HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+
+            ExcelApp.Visible = true;
+        }
+
+        private async void WordClick(object sender, RoutedEventArgs e)
+        {
+            _allSalary_Payment = await _apiService.GetSalary_PaymentList();
+            var Salary_PaymentInPDF = _allSalary_Payment;
+
+            var Salary_PaymentApplicationPDF = new Word.Application();
+
+            Word.Document document = Salary_PaymentApplicationPDF.Documents.Add();
+
+            Word.Paragraph empParagraph = document.Paragraphs.Add();
+            Word.Range empRange = empParagraph.Range;
+            empRange.Text = "Salary_Payment";
+            empRange.Font.Bold = 4;
+            empRange.Font.Italic = 4;
+            empRange.Font.Color = Word.WdColor.wdColorBlack;
+            empRange.InsertParagraphAfter();
+
+            Word.Paragraph tableParagraph = document.Paragraphs.Add();
+            Word.Range tableRange = tableParagraph.Range;
+            Word.Table paymentsTable = document.Tables.Add(tableRange, Salary_PaymentInPDF.Count() + 1, 5);
+            paymentsTable.Borders.InsideLineStyle = paymentsTable.Borders.OutsideLineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            paymentsTable.Range.Cells.VerticalAlignment = Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+            Word.Range cellRange;
+
+            cellRange = paymentsTable.Cell(1, 1).Range;
+            cellRange.Text = "Фамилия";
+            cellRange = paymentsTable.Cell(1, 2).Range;
+            cellRange.Text = "Имя";
+            cellRange = paymentsTable.Cell(1, 3).Range;
+            cellRange.Text = "Отчество";
+            cellRange = paymentsTable.Cell(1, 4).Range;
+            cellRange.Text = "Сумма выплаты";
+            cellRange = paymentsTable.Cell(1, 5).Range;
+            cellRange.Text = "Дата выплаты";
+
+
+            paymentsTable.Rows[1].Range.Bold = 1;
+            paymentsTable.Rows[1].Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
+
+            for (int i = 0; i < Salary_PaymentInPDF.Count(); i++)
+            {
+                var ProductCurrent = Salary_PaymentInPDF[i];
+
+                cellRange = paymentsTable.Cell(i + 2, 1).Range;
+                cellRange.Text = ProductCurrent.lastname_staff;
+
+                cellRange = paymentsTable.Cell(i + 2, 2).Range;
+                cellRange.Text = ProductCurrent.name_staff;
+
+                cellRange = paymentsTable.Cell(i + 2, 3).Range;
+                cellRange.Text = ProductCurrent.patronymic_staff;
+
+                cellRange = paymentsTable.Cell(i + 2, 4).Range;
+                cellRange.Text = ProductCurrent.amount_salary_payment.ToString();
+
+                cellRange = paymentsTable.Cell(i + 2, 5).Range;
+                cellRange.Text = ProductCurrent.date_salary_payment.ToString();
+            }
+
+            Salary_PaymentApplicationPDF.Visible = true;
+
+            document.SaveAs2(@"C:\Users\User\OneDrive\Desktop\WageFlow_Fullstack\WageFlow.Frontend\WageFlow.Frontend\src\Files\Salary_Payment.docx");
+        }
+
+        private async void PDFClick(object sender, RoutedEventArgs e)
+        {
+            _allSalary_Payment = await _apiService.GetSalary_PaymentList();
+            var Salary_PaymentInPDF = _allSalary_Payment;
+
+            var Salary_PaymentApplicationPDF = new Word.Application();
+
+            Word.Document document = Salary_PaymentApplicationPDF.Documents.Add();
+
+            Word.Paragraph empParagraph = document.Paragraphs.Add();
+            Word.Range empRange = empParagraph.Range;
+            empRange.Text = "Salary_Payment";
+            empRange.Font.Bold = 4;
+            empRange.Font.Italic = 4;
+            empRange.Font.Color = Word.WdColor.wdColorBlack;
+            empRange.InsertParagraphAfter();
+
+            Word.Paragraph tableParagraph = document.Paragraphs.Add();
+            Word.Range tableRange = tableParagraph.Range;
+            Word.Table paymentsTable = document.Tables.Add(tableRange, Salary_PaymentInPDF.Count() + 1, 5);
+            paymentsTable.Borders.InsideLineStyle = paymentsTable.Borders.OutsideLineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            paymentsTable.Range.Cells.VerticalAlignment = Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+            Word.Range cellRange;
+
+            cellRange = paymentsTable.Cell(1, 1).Range;
+            cellRange.Text = "Фамилия";
+            cellRange = paymentsTable.Cell(1, 2).Range;
+            cellRange.Text = "Имя";
+            cellRange = paymentsTable.Cell(1, 3).Range;
+            cellRange.Text = "Отчество";
+            cellRange = paymentsTable.Cell(1, 4).Range;
+            cellRange.Text = "Сумма выплаты";
+            cellRange = paymentsTable.Cell(1, 5).Range;
+            cellRange.Text = "Дата выплаты";
+
+
+            paymentsTable.Rows[1].Range.Bold = 1;
+            paymentsTable.Rows[1].Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
+
+            for (int i = 0; i < Salary_PaymentInPDF.Count(); i++)
+            {
+                var ProductCurrent = Salary_PaymentInPDF[i];
+
+                cellRange = paymentsTable.Cell(i + 2, 1).Range;
+                cellRange.Text = ProductCurrent.lastname_staff;
+
+                cellRange = paymentsTable.Cell(i + 2, 2).Range;
+                cellRange.Text = ProductCurrent.name_staff;
+
+                cellRange = paymentsTable.Cell(i + 2, 3).Range;
+                cellRange.Text = ProductCurrent.patronymic_staff;
+
+                cellRange = paymentsTable.Cell(i + 2, 4).Range;
+                cellRange.Text = ProductCurrent.amount_salary_payment.ToString();
+
+                cellRange = paymentsTable.Cell(i + 2, 5).Range;
+                cellRange.Text = ProductCurrent.date_salary_payment.ToString();
+            }
+
+            Salary_PaymentApplicationPDF.Visible = true;
+
+            document.SaveAs2(@"C:\Users\User\OneDrive\Desktop\WageFlow_Fullstack\WageFlow.Frontend\WageFlow.Frontend\src\Files\Salary_Payment.pdf", Word.WdExportFormat.wdExportFormatPDF);
         }
     }
 }

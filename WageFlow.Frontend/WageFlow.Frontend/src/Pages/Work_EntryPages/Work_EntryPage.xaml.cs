@@ -14,10 +14,13 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WageFlow.Frontend.src.Data.Entities.Payments;
 using WageFlow.Frontend.src.Data.Entities.Work_Entry;
+using WageFlow.Frontend.src.Data.Entities.Work_Type;
 using WageFlow.Frontend.src.Data.Services;
 using WageFlow.Frontend.src.Pages.PaymentsPages;
 using WageFlow.Frontend.src.Pages.Salary_PaymentPages;
 using WageFlow.Frontend.src.Pages.StaffPages;
+using Excel = Microsoft.Office.Interop.Excel;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace WageFlow.Frontend.src.Pages.Work_EntryPages
 {
@@ -28,6 +31,7 @@ namespace WageFlow.Frontend.src.Pages.Work_EntryPages
     {
         private readonly ApiService _apiService;
         private List<Work_Entry> _allWork_Entry;
+        private List<Work_Type> _allWork_Type;
         public Work_EntryPage()
         {
             InitializeComponent();
@@ -41,6 +45,11 @@ namespace WageFlow.Frontend.src.Pages.Work_EntryPages
             {
                 _allWork_Entry = await _apiService.GetWork_EntryList();
                 Work_EntryListView.ItemsSource = _allWork_Entry.OrderBy(x => x.lastname_staff);
+
+                _allWork_Type = await _apiService.GetWork_TypeList();
+                CmbWork_Type.ItemsSource = _allWork_Type.ToList();
+                CmbWork_Type.SelectedValuePath = "id_work_type";
+                CmbWork_Type.DisplayMemberPath = "name_work_type";
             }
             catch (Exception ex)
             {
@@ -103,6 +112,234 @@ namespace WageFlow.Frontend.src.Pages.Work_EntryPages
             {
                 MessageBox.Show("Выберите работу для удаления.");
             }
+        }
+
+        private void ApplyFilters()
+        {
+            var filtered = _allWork_Entry.AsEnumerable();
+
+            if (!string.IsNullOrWhiteSpace(TbSerch.Text))
+            {
+                filtered = filtered.Where(x => x.lastname_staff
+                    .IndexOf(TbSerch.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+            }
+
+            if (CmbWork_Type.SelectedValue is int typeId)
+                filtered = filtered.Where(x => x.id_work_type == typeId);
+
+            Work_EntryListView.ItemsSource = filtered.ToList();
+        }
+
+        private void CmbWork_Type_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ApplyFilters();
+        }
+
+        private void TbSerch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ApplyFilters();
+        }
+
+        private void Clear_Click(object sender, RoutedEventArgs e)
+        {
+            TbSerch.Clear();
+            CmbWork_Type.SelectedItem = null;
+            ApplyFilters();
+        }
+
+        private void ExcelClick(object sender, RoutedEventArgs e)
+        {
+            var ExcelApp = new Excel.Application();
+
+            Excel.Workbook wb = ExcelApp.Workbooks.Add();
+
+            Excel.Worksheet worksheet = (Excel.Worksheet)ExcelApp.Worksheets.Item[1];
+
+            int indexRows = 1;
+
+            worksheet.Cells[indexRows, 1] = "№";
+            worksheet.Cells[indexRows, 2] = "Фамилия";
+            worksheet.Cells[indexRows, 3] = "Имя";
+            worksheet.Cells[indexRows, 4] = "Отчество";
+            worksheet.Cells[indexRows, 5] = "Тип работы";
+            worksheet.Cells[indexRows, 6] = "Количество";
+            worksheet.Cells[indexRows, 7] = "Сумма";
+            worksheet.Cells[indexRows, 8] = "Дата";
+
+            var printItems = Work_EntryListView.Items;
+
+            foreach (Work_Entry item in printItems)
+            {
+                worksheet.Cells[indexRows, 1] = indexRows - 1;
+                worksheet.Cells[indexRows, 2] = item.lastname_staff;
+                worksheet.Cells[indexRows, 3] = item.name_staff;
+                worksheet.Cells[indexRows, 4] = item.patronymic_staff;
+                worksheet.Cells[indexRows, 5] = item.name_work_type;
+                worksheet.Cells[indexRows, 6] = item.quantity_work_entry;
+                worksheet.Cells[indexRows, 7] = item.amount_work_type;
+                worksheet.Cells[indexRows, 8] = item.date_work_entry.ToString("dd.MM.yyyy");
+
+                indexRows++;
+            }
+            Excel.Range range = worksheet.Range[
+                worksheet.Cells[1, 1],
+                    worksheet.Cells[indexRows, 8]];
+
+            range.ColumnWidth = 20;
+
+            range.HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+
+            ExcelApp.Visible = true;
+        }
+
+        private async void WordClick(object sender, RoutedEventArgs e)
+        {
+            _allWork_Entry = await _apiService.GetWork_EntryList();
+            var Work_EntryInPDF = _allWork_Entry;
+
+            var Work_EntryApplicationPDF = new Word.Application();
+
+            Word.Document document = Work_EntryApplicationPDF.Documents.Add();
+
+            Word.Paragraph empParagraph = document.Paragraphs.Add();
+            Word.Range empRange = empParagraph.Range;
+            empRange.Text = "Work_Entry";
+            empRange.Font.Bold = 4;
+            empRange.Font.Italic = 4;
+            empRange.Font.Color = Word.WdColor.wdColorBlack;
+            empRange.InsertParagraphAfter();
+
+            Word.Paragraph tableParagraph = document.Paragraphs.Add();
+            Word.Range tableRange = tableParagraph.Range;
+            Word.Table paymentsTable = document.Tables.Add(tableRange, Work_EntryInPDF.Count() + 1, 7);
+            paymentsTable.Borders.InsideLineStyle = paymentsTable.Borders.OutsideLineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            paymentsTable.Range.Cells.VerticalAlignment = Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+            Word.Range cellRange;
+
+            cellRange = paymentsTable.Cell(1, 1).Range;
+            cellRange.Text = "Фамилия";
+            cellRange = paymentsTable.Cell(1, 2).Range;
+            cellRange.Text = "Имя";
+            cellRange = paymentsTable.Cell(1, 3).Range;
+            cellRange.Text = "Отчество";
+            cellRange = paymentsTable.Cell(1, 4).Range;
+            cellRange.Text = "Тип работы";
+            cellRange = paymentsTable.Cell(1, 5).Range;
+            cellRange.Text = "Количество";
+            cellRange = paymentsTable.Cell(1, 6).Range;
+            cellRange.Text = "Сумма";
+            cellRange = paymentsTable.Cell(1, 7).Range;
+            cellRange.Text = "Дата";
+
+
+            paymentsTable.Rows[1].Range.Bold = 1;
+            paymentsTable.Rows[1].Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
+
+            for (int i = 0; i < Work_EntryInPDF.Count(); i++)
+            {
+                var ProductCurrent = Work_EntryInPDF[i];
+
+                cellRange = paymentsTable.Cell(i + 2, 1).Range;
+                cellRange.Text = ProductCurrent.lastname_staff;
+
+                cellRange = paymentsTable.Cell(i + 2, 2).Range;
+                cellRange.Text = ProductCurrent.name_staff;
+
+                cellRange = paymentsTable.Cell(i + 2, 3).Range;
+                cellRange.Text = ProductCurrent.patronymic_staff;
+
+                cellRange = paymentsTable.Cell(i + 2, 4).Range;
+                cellRange.Text = ProductCurrent.name_work_type;
+
+                cellRange = paymentsTable.Cell(i + 2, 5).Range;
+                cellRange.Text = ProductCurrent.quantity_work_entry.ToString();
+
+                cellRange = paymentsTable.Cell(i + 2, 6).Range;
+                cellRange.Text = ProductCurrent.amount_work_type.ToString();
+
+                cellRange = paymentsTable.Cell(i + 2, 7).Range;
+                cellRange.Text = ProductCurrent.date_work_entry.ToString();
+            }
+
+            Work_EntryApplicationPDF.Visible = true;
+
+            document.SaveAs2(@"C:\Users\User\OneDrive\Desktop\WageFlow_Fullstack\WageFlow.Frontend\WageFlow.Frontend\src\Files\Work_Entry.docx");
+        }
+
+        private async void PDFClick(object sender, RoutedEventArgs e)
+        {
+            _allWork_Entry = await _apiService.GetWork_EntryList();
+            var Work_EntryInPDF = _allWork_Entry;
+
+            var Work_EntryApplicationPDF = new Word.Application();
+
+            Word.Document document = Work_EntryApplicationPDF.Documents.Add();
+
+            Word.Paragraph empParagraph = document.Paragraphs.Add();
+            Word.Range empRange = empParagraph.Range;
+            empRange.Text = "Work_Entry";
+            empRange.Font.Bold = 4;
+            empRange.Font.Italic = 4;
+            empRange.Font.Color = Word.WdColor.wdColorBlack;
+            empRange.InsertParagraphAfter();
+
+            Word.Paragraph tableParagraph = document.Paragraphs.Add();
+            Word.Range tableRange = tableParagraph.Range;
+            Word.Table paymentsTable = document.Tables.Add(tableRange, Work_EntryInPDF.Count() + 1, 7);
+            paymentsTable.Borders.InsideLineStyle = paymentsTable.Borders.OutsideLineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            paymentsTable.Range.Cells.VerticalAlignment = Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+            Word.Range cellRange;
+
+            cellRange = paymentsTable.Cell(1, 1).Range;
+            cellRange.Text = "Фамилия";
+            cellRange = paymentsTable.Cell(1, 2).Range;
+            cellRange.Text = "Имя";
+            cellRange = paymentsTable.Cell(1, 3).Range;
+            cellRange.Text = "Отчество";
+            cellRange = paymentsTable.Cell(1, 4).Range;
+            cellRange.Text = "Тип работы";
+            cellRange = paymentsTable.Cell(1, 5).Range;
+            cellRange.Text = "Количество";
+            cellRange = paymentsTable.Cell(1, 6).Range;
+            cellRange.Text = "Сумма";
+            cellRange = paymentsTable.Cell(1, 7).Range;
+            cellRange.Text = "Дата";
+
+
+            paymentsTable.Rows[1].Range.Bold = 1;
+            paymentsTable.Rows[1].Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
+
+            for (int i = 0; i < Work_EntryInPDF.Count(); i++)
+            {
+                var ProductCurrent = Work_EntryInPDF[i];
+
+                cellRange = paymentsTable.Cell(i + 2, 1).Range;
+                cellRange.Text = ProductCurrent.lastname_staff;
+
+                cellRange = paymentsTable.Cell(i + 2, 2).Range;
+                cellRange.Text = ProductCurrent.name_staff;
+
+                cellRange = paymentsTable.Cell(i + 2, 3).Range;
+                cellRange.Text = ProductCurrent.patronymic_staff;
+
+                cellRange = paymentsTable.Cell(i + 2, 4).Range;
+                cellRange.Text = ProductCurrent.name_work_type;
+
+                cellRange = paymentsTable.Cell(i + 2, 5).Range;
+                cellRange.Text = ProductCurrent.quantity_work_entry.ToString();
+
+                cellRange = paymentsTable.Cell(i + 2, 6).Range;
+                cellRange.Text = ProductCurrent.amount_work_type.ToString();
+
+                cellRange = paymentsTable.Cell(i + 2, 7).Range;
+                cellRange.Text = ProductCurrent.date_work_entry.ToString();
+            }
+
+            Work_EntryApplicationPDF.Visible = true;
+
+            document.SaveAs2(@"C:\Users\User\OneDrive\Desktop\WageFlow_Fullstack\WageFlow.Frontend\WageFlow.Frontend\src\Files\Work_Entry.pdf", Word.WdExportFormat.wdExportFormatPDF);
         }
     }
 }

@@ -24,7 +24,7 @@
                     <GradientStop Color="#1a1b19" Offset="1"/>
                 </LinearGradientBrush>
             </StackPanel.Background>
-            <StackPanel Height="250">
+            <StackPanel Height="201">
                 <Button Height="50" Width="50" Background="Transparent" Margin="0,15,0,0" Click="PaymentsClick">
                     <Image Source="/src/Images/Payments_Img.png"/>
                     <Button.ToolTip>
@@ -50,6 +50,32 @@
                     </Button.ToolTip>
                 </Button>
             </StackPanel>
+            <StackPanel Height="202">
+                <Button Height="50" Width="50" Background="Transparent" Margin="0,10,0,0" Click="ExcelClick">
+                    <Image Source="/src/Images/Excel.png"/>
+                    <Button.ToolTip>
+                        <ToolTip Height="30" Style="{StaticResource RoundToolsTemplate}">
+                            ㅤㅤЭкспорт в Excelㅤ
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
+                <Button Height="50" Width="50" Background="Transparent" Margin="0,10,0,0" Click="WordClick">
+                    <Image Source="/src/Images/Word.png"/>
+                    <Button.ToolTip>
+                        <ToolTip Height="30" Style="{StaticResource RoundToolsTemplate}">
+                            ㅤㅤЭкспорт в Wordㅤ
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
+                <Button Height="50" Width="50" Background="Transparent" Margin="0,10,0,0" Click="PDFClick">
+                    <Image Source="/src/Images/PDF.png"/>
+                    <Button.ToolTip>
+                        <ToolTip Height="30" Style="{StaticResource RoundToolsTemplate}">
+                            ㅤㅤЭкспорт в PDFㅤ
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
+            </StackPanel>
         </StackPanel>
         <StackPanel Grid.Column="1" Background="White">
             <ListView x:Name="Work_EntryListView" Margin="10" Height="300">
@@ -71,7 +97,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <StackPanel Height="83" >
+            <StackPanel Height="83" Orientation="Horizontal">
                 <StackPanel.Background>
                     <LinearGradientBrush StartPoint="0,0"
                              EndPoint="0,1">
@@ -105,7 +131,40 @@
                         </Button.ToolTip>
                     </Button>
                 </StackPanel>
-                <StackPanel Width="362" Margin="0,-83,0,0" HorizontalAlignment="Right" Height="83">
+                <StackPanel Height="83" Width="362" Orientation="Horizontal">
+                    <StackPanel Height="83" Width="181">
+                        <ComboBox Height="25" Width="150" BorderThickness="2" BorderBrush="Black"
+                x:Name="CmbWork_Type" Margin="0,10,0,0"
+                SelectionChanged="CmbWork_Type_SelectionChanged">
+                            <ComboBox.ToolTip>
+                                <ToolTip Height="30">
+                                    ㅤВыбрать тип выплаты
+                                </ToolTip>
+                            </ComboBox.ToolTip>
+                        </ComboBox>
+                        <TextBox x:Name="TbSerch" Height="25" FontSize="16" Width="150" BorderThickness="2" BorderBrush="Black" Margin="10" TextChanged="TbSerch_TextChanged">
+                            <TextBox.ToolTip>
+                                <ToolTip Height="30" Style="{StaticResource RoundToolsTemplate}">
+                                    ㅤПоиск по фамилии
+                                </ToolTip>
+                            </TextBox.ToolTip>
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Height="83" Width="181">
+                        <Button Height="25" Width="100"
+                Content="Очистить"
+                Foreground="Black" 
+                FontWeight="Medium"
+                FontStyle="Italic"
+                Margin="0,27,0,0"
+                Click="Clear_Click">
+                            <Button.ToolTip>
+                                <ToolTip Height="30" Style="{StaticResource RoundToolsTemplate}">
+                                    ㅤОчищает фильтрыㅤ
+                                </ToolTip>
+                            </Button.ToolTip>
+                        </Button>
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
