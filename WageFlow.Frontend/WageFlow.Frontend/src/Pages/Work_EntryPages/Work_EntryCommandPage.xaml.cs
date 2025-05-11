@@ -39,7 +39,6 @@ namespace WageFlow.Frontend.src.Pages.Work_EntryPages
             LoadWork_Type_Staff();
 
             TBoxQuantity.Text = _work_Entry.quantity_work_entry.ToString();
-            TBoxDate.Text = _work_Entry.date_work_entry.ToString();
             CmbSelectStaff.Text = _work_Entry.id_staff.ToString();
             CmbSelectWork_Type.Text = _work_Entry.id_work_type.ToString();
         }
@@ -69,7 +68,6 @@ namespace WageFlow.Frontend.src.Pages.Work_EntryPages
             try
             {
                 _work_Entry.quantity_work_entry = int.Parse(TBoxQuantity.Text);
-                _work_Entry.date_work_entry = DateOnly.Parse(TBoxDate.Text);
                 _work_Entry.id_staff = (int)CmbSelectStaff.SelectedValue;
                 _work_Entry.id_work_type = (int)CmbSelectWork_Type.SelectedValue;
 

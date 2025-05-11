@@ -49,14 +49,24 @@
                 FontStyle="Italic"
                 FontWeight="Heavy"
                 Foreground="#533840">Дата начала:</Label>
-                <TextBox Height="30" Width="200" Margin="150,-35,0,0" Name="TBoxStart_Date_Salary_Payment"/>
+                <!--<TextBox Height="30" Width="200" Margin="150,-35,0,0" Name="TBoxStart_Date_Salary_Payment"/>-->
+                <DatePicker Height="30"
+                            Width="200"
+                            Margin="150,-35,0,0"
+                            x:Name="DatePickerStartDate"
+                            DisplayDateStart="2023-01-01"/>
             </StackPanel>
             <StackPanel Width="400" Margin="0,0,0,0">
                 <Label FontSize="20" Width="175" HorizontalAlignment="Left"
                 FontStyle="Italic"
                 FontWeight="Heavy"
                 Foreground="#533840">Дата конца:</Label>
-                <TextBox Height="30" Width="200" Margin="150,-35,0,0" Name="TBoxEnd_Date_Salary_Payment"/>
+                <!--<TextBox Height="30" Width="200" Margin="150,-35,0,0" Name="TBoxEnd_Date_Salary_Payment"/>-->
+                <DatePicker Height="30"
+                            Width="200"
+                            Margin="150,-35,0,0"
+                            x:Name="DatePickerEndDate"
+                            DisplayDateStart="2023-01-01"/>
             </StackPanel>
             <StackPanel Width="400" Margin="0,0,0,0">
                 <Label FontSize="20" Width="175" HorizontalAlignment="Left"

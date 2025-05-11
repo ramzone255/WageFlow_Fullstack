@@ -34,8 +34,8 @@ namespace WageFlow.Frontend.src.Pages.Salary_PaymentPages
             _salary_Payment = salary_Payment ?? new Salary_Payment();
             LoadStaff();
 
-            TBoxStart_Date_Salary_Payment.Text = _salary_Payment.start_date_salary_payment.ToString();
-            TBoxEnd_Date_Salary_Payment.Text = _salary_Payment.end_date_salary_payment.ToString();
+            DatePickerStartDate.Text = _salary_Payment.start_date_salary_payment.ToString();
+            DatePickerEndDate.Text = _salary_Payment.end_date_salary_payment.ToString();
             CmbSelectStaff.Text = _salary_Payment.id_staff.ToString();
         }
 
@@ -47,6 +47,12 @@ namespace WageFlow.Frontend.src.Pages.Salary_PaymentPages
                 CmbSelectStaff.ItemsSource = _allStaff.ToList();
                 CmbSelectStaff.SelectedValuePath = "id_staff";
                 CmbSelectStaff.DisplayMemberPath = "lastname_staff";
+
+                if (DatePickerStartDate.SelectedDate is DateTime selectedDate && selectedDate == DateTime.MinValue)
+                {
+                    DatePickerStartDate.SelectedDate = DateTime.Today;
+                    DatePickerEndDate.SelectedDate = DateTime.Today;
+                }
             }
             catch (Exception ex)
             {
@@ -58,8 +64,8 @@ namespace WageFlow.Frontend.src.Pages.Salary_PaymentPages
         {
             try
             {
-                _salary_Payment.start_date_salary_payment = DateOnly.Parse(TBoxStart_Date_Salary_Payment.Text);
-                _salary_Payment.end_date_salary_payment = DateOnly.Parse(TBoxEnd_Date_Salary_Payment.Text);
+                _salary_Payment.start_date_salary_payment = DateOnly.Parse(DatePickerStartDate.Text);
+                _salary_Payment.end_date_salary_payment = DateOnly.Parse(DatePickerEndDate.Text);
                 _salary_Payment.id_staff = (int)CmbSelectStaff.SelectedValue;
 
                 if (_salary_Payment.id_salary_payment == 0)

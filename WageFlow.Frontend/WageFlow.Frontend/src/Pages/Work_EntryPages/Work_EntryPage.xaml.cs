@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WageFlow.Frontend.src.Data.Entities.Payments;
+using WageFlow.Frontend.src.Data.Entities.User;
 using WageFlow.Frontend.src.Data.Entities.Work_Entry;
 using WageFlow.Frontend.src.Data.Entities.Work_Type;
 using WageFlow.Frontend.src.Data.Services;

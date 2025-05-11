@@ -47,6 +47,20 @@ namespace WageFlow.Frontend.src.Pages.Salary_PaymentPages
             {
                 _allSalary_Payment = await _apiService.GetSalary_PaymentList();
                 Salary_PaymentListView.ItemsSource = _allSalary_Payment.OrderBy(x => x.date_salary_payment);
+
+                string name_postUser = UserSession.CurrentUser.name_post;
+                if (name_postUser != "Руководитель")
+                {
+                    AddButton.Visibility = Visibility.Hidden;
+                    UpdateButton.Visibility = Visibility.Hidden;
+                    DeleteButton.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    AddButton.Visibility = Visibility.Visible;
+                    UpdateButton.Visibility = Visibility.Visible;
+                    DeleteButton.Visibility = Visibility.Visible;
+                }
             }
             catch (Exception ex)
             {

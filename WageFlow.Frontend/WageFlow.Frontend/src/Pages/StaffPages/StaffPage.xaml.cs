@@ -16,6 +16,7 @@ using WageFlow.Frontend.src.Data.Entities.Payments;
 using WageFlow.Frontend.src.Data.Entities.Post;
 using WageFlow.Frontend.src.Data.Entities.Salary_Payment;
 using WageFlow.Frontend.src.Data.Entities.Staff;
+using WageFlow.Frontend.src.Data.Entities.User;
 using WageFlow.Frontend.src.Data.Services;
 using WageFlow.Frontend.src.Pages.PaymentsPages;
 using WageFlow.Frontend.src.Pages.Salary_PaymentPages;
@@ -51,6 +52,20 @@ namespace WageFlow.Frontend.src.Pages.StaffPages
                 CmbPost.ItemsSource = _allPost.ToList();
                 CmbPost.SelectedValuePath = "id_post";
                 CmbPost.DisplayMemberPath = "name_post";
+
+                string name_postUser = UserSession.CurrentUser.name_post;
+                if (name_postUser != "Руководитель")
+                {
+                    AddButton.Visibility = Visibility.Hidden;
+                    UpdateButton.Visibility = Visibility.Hidden;
+                    DeleteButton.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    AddButton.Visibility = Visibility.Visible;
+                    UpdateButton.Visibility = Visibility.Visible;
+                    DeleteButton.Visibility = Visibility.Visible;
+                }
             }
             catch (Exception ex)
             {

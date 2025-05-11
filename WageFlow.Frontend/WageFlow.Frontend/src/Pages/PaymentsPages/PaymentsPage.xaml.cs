@@ -12,6 +12,7 @@ using WageFlow.Frontend.src.Pages.StaffPages;
 using WageFlow.Frontend.src.Pages.Work_EntryPages;
 using Excel = Microsoft.Office.Interop.Excel;
 using Word = Microsoft.Office.Interop.Word;
+using WageFlow.Frontend.src.Data.Entities.User;
 
 namespace WageFlow.Frontend.src.Pages.PaymentsPages
 {
@@ -41,6 +42,20 @@ namespace WageFlow.Frontend.src.Pages.PaymentsPages
                 CmbPayments_Type.ItemsSource = _allPayments_Type.ToList();
                 CmbPayments_Type.SelectedValuePath = "id_payments_type";
                 CmbPayments_Type.DisplayMemberPath = "name_payments_type";
+
+                string name_postUser = UserSession.CurrentUser.name_post;
+                if (name_postUser == "Сотрудник")
+                {
+                    AddButton.Visibility = Visibility.Hidden;
+                    UpdateButton.Visibility = Visibility.Hidden;
+                    DeleteButton.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    AddButton.Visibility = Visibility.Visible;
+                    UpdateButton.Visibility = Visibility.Visible;
+                    DeleteButton.Visibility = Visibility.Visible;
+                }
             }
             catch (Exception ex)
             {
