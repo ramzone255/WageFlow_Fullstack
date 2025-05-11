@@ -33,7 +33,7 @@ namespace WageFlow.Frontend.src.Pages.UserPages
         private async void SignInClick(object sender, RoutedEventArgs e)
         {
             string User_name = TBoxUserName.Text;
-            string User_password = TBoxUserPassword.Text;
+            string User_password = PBoxUserPassword.Password;
 
             var user = await _apiService.SignIn(User_name, User_password);
             if (user != null)

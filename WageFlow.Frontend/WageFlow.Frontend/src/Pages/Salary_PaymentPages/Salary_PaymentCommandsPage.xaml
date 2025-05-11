@@ -49,7 +49,6 @@
                 FontStyle="Italic"
                 FontWeight="Heavy"
                 Foreground="#533840">Дата начала:</Label>
-                <!--<TextBox Height="30" Width="200" Margin="150,-35,0,0" Name="TBoxStart_Date_Salary_Payment"/>-->
                 <DatePicker Height="30"
                             Width="200"
                             Margin="150,-35,0,0"
@@ -61,7 +60,6 @@
                 FontStyle="Italic"
                 FontWeight="Heavy"
                 Foreground="#533840">Дата конца:</Label>
-                <!--<TextBox Height="30" Width="200" Margin="150,-35,0,0" Name="TBoxEnd_Date_Salary_Payment"/>-->
                 <DatePicker Height="30"
                             Width="200"
                             Margin="150,-35,0,0"

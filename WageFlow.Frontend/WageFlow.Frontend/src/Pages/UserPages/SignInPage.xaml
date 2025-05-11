@@ -22,7 +22,8 @@
                     FontStyle="Italic"
                     FontWeight="Heavy"
                     Foreground="#533840">User Password:</Label>
-                <TextBox Height="30" Width="200" Margin="150,-35,0,0" Name="TBoxUserPassword"/>
+                <!--<TextBox Height="30" Width="200" Margin="150,-35,0,0" Name="TBoxUserPassword"/>-->
+                <PasswordBox Height="30" Width="200" Margin="150,-35,0,0" Name="PBoxUserPassword"/>
             </StackPanel>
             <Button Height="50" Width="50" Background="Transparent" Margin="0,20,0,0" Click="SignInClick">
                 <Image Source="/src/Images/SignInUser_Img.png"/>
