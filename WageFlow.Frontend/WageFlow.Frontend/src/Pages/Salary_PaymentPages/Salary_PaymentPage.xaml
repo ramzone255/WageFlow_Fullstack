@@ -84,7 +84,7 @@
                         <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding lastname_staff}" Width="112"/>
                         <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding name_staff}" Width="100"/>
                         <GridViewColumn Header="Отчество" DisplayMemberBinding="{Binding patronymic_staff}" Width="142"/>
-                        <GridViewColumn Header="Сумма выплаты" DisplayMemberBinding="{Binding amount_salary_payment}" Width="202"/>
+                        <GridViewColumn Header="Сумма выплаты (₽)" DisplayMemberBinding="{Binding amount_salary_payment}" Width="202"/>
                         <GridViewColumn Header="Дата выплаты" DisplayMemberBinding="{Binding date_salary_payment}" Width="142"/>
                     </GridView>
                 </ListView.View>

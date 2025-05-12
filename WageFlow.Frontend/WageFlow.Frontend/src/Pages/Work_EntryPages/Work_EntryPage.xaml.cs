@@ -165,7 +165,7 @@ namespace WageFlow.Frontend.src.Pages.Work_EntryPages
             worksheet.Cells[indexRows, 4] = "Отчество";
             worksheet.Cells[indexRows, 5] = "Тип работы";
             worksheet.Cells[indexRows, 6] = "Количество";
-            worksheet.Cells[indexRows, 7] = "Сумма";
+            worksheet.Cells[indexRows, 7] = "Сумма (₽)";
             worksheet.Cells[indexRows, 8] = "Дата";
 
             var printItems = Work_EntryListView.Items;
@@ -230,7 +230,7 @@ namespace WageFlow.Frontend.src.Pages.Work_EntryPages
             cellRange = paymentsTable.Cell(1, 5).Range;
             cellRange.Text = "Количество";
             cellRange = paymentsTable.Cell(1, 6).Range;
-            cellRange.Text = "Сумма";
+            cellRange.Text = "Сумма (₽)";
             cellRange = paymentsTable.Cell(1, 7).Range;
             cellRange.Text = "Дата";
 
@@ -305,7 +305,7 @@ namespace WageFlow.Frontend.src.Pages.Work_EntryPages
             cellRange = paymentsTable.Cell(1, 5).Range;
             cellRange.Text = "Количество";
             cellRange = paymentsTable.Cell(1, 6).Range;
-            cellRange.Text = "Сумма";
+            cellRange.Text = "Сумма (₽)";
             cellRange = paymentsTable.Cell(1, 7).Range;
             cellRange.Text = "Дата";
 

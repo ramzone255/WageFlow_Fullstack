@@ -163,7 +163,7 @@ namespace WageFlow.Frontend.src.Pages.Salary_PaymentPages
             worksheet.Cells[indexRows, 2] = "Фамилия";
             worksheet.Cells[indexRows, 3] = "Имя";
             worksheet.Cells[indexRows, 4] = "Отчество";
-            worksheet.Cells[indexRows, 5] = "Сумма выплаты";
+            worksheet.Cells[indexRows, 5] = "Сумма выплаты (₽)";
             worksheet.Cells[indexRows, 6] = "Дата выплаты";
 
             var printItems = Salary_PaymentListView.Items;
@@ -222,7 +222,7 @@ namespace WageFlow.Frontend.src.Pages.Salary_PaymentPages
             cellRange = paymentsTable.Cell(1, 3).Range;
             cellRange.Text = "Отчество";
             cellRange = paymentsTable.Cell(1, 4).Range;
-            cellRange.Text = "Сумма выплаты";
+            cellRange.Text = "Сумма выплаты (₽)";
             cellRange = paymentsTable.Cell(1, 5).Range;
             cellRange.Text = "Дата выплаты";
 
@@ -287,7 +287,7 @@ namespace WageFlow.Frontend.src.Pages.Salary_PaymentPages
             cellRange = paymentsTable.Cell(1, 3).Range;
             cellRange.Text = "Отчество";
             cellRange = paymentsTable.Cell(1, 4).Range;
-            cellRange.Text = "Сумма выплаты";
+            cellRange.Text = "Сумма выплаты (₽)";
             cellRange = paymentsTable.Cell(1, 5).Range;
             cellRange.Text = "Дата выплаты";
 

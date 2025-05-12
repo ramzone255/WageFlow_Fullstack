@@ -92,7 +92,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Тип выплаты" DisplayMemberBinding="{Binding name_payments_type}" Width="100"/>
-                        <GridViewColumn Header="Сумма" DisplayMemberBinding="{Binding amount_payments}" Width="60"/>
+                        <GridViewColumn Header="Сумма (₽)" DisplayMemberBinding="{Binding amount_payments}" Width="60"/>
                         <GridViewColumn Header="Дата" DisplayMemberBinding="{Binding date_payments}" Width="80"/>
                     </GridView>
                 </ListView.View>
