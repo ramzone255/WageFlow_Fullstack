@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -329,9 +330,18 @@ namespace WageFlow.Frontend.src.Pages.StaffPages
                 cellRange.Text = ProductCurrent.name_post;
             }
 
-            StaffApplicationPDF.Visible = true;
+            string pdfPath = @"C:\Users\User\OneDrive\Desktop\WageFlow_Fullstack\WageFlow.Frontend\WageFlow.Frontend\src\Files\Staff.pdf";
 
-            document.SaveAs2(@"C:\Users\User\OneDrive\Desktop\WageFlow_Fullstack\WageFlow.Frontend\WageFlow.Frontend\src\Files\Staff.pdf", Word.WdExportFormat.wdExportFormatPDF);
+            document.ExportAsFixedFormat(pdfPath, Word.WdExportFormat.wdExportFormatPDF);
+
+            document.Close(false);
+            StaffApplicationPDF.Quit();
+
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = pdfPath,
+                UseShellExecute = true
+            });
         }
     }
 }

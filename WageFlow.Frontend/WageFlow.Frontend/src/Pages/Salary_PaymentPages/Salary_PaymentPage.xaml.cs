@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -315,9 +316,18 @@ namespace WageFlow.Frontend.src.Pages.Salary_PaymentPages
                 cellRange.Text = ProductCurrent.date_salary_payment.ToString();
             }
 
-            Salary_PaymentApplicationPDF.Visible = true;
+            string pdfPath = @"C:\Users\User\OneDrive\Desktop\WageFlow_Fullstack\WageFlow.Frontend\WageFlow.Frontend\src\Files\Salary_Payment.pdf";
 
-            document.SaveAs2(@"C:\Users\User\OneDrive\Desktop\WageFlow_Fullstack\WageFlow.Frontend\WageFlow.Frontend\src\Files\Salary_Payment.pdf", Word.WdExportFormat.wdExportFormatPDF);
+            document.ExportAsFixedFormat(pdfPath, Word.WdExportFormat.wdExportFormatPDF);
+
+            document.Close(false);
+            Salary_PaymentApplicationPDF.Quit();
+
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = pdfPath,
+                UseShellExecute = true
+            });
         }
     }
 }

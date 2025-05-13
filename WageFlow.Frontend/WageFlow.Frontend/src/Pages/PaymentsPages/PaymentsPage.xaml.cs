@@ -13,6 +13,7 @@ using WageFlow.Frontend.src.Pages.Work_EntryPages;
 using Excel = Microsoft.Office.Interop.Excel;
 using Word = Microsoft.Office.Interop.Word;
 using WageFlow.Frontend.src.Data.Entities.User;
+using System.Diagnostics;
 
 namespace WageFlow.Frontend.src.Pages.PaymentsPages
 {
@@ -343,9 +344,18 @@ namespace WageFlow.Frontend.src.Pages.PaymentsPages
                 cellRange.Text = ProductCurrent.date_payments.ToString();
             }
 
-            PaymentsApplicationPDF.Visible = true;
+            string pdfPath = @"C:\Users\User\OneDrive\Desktop\WageFlow_Fullstack\WageFlow.Frontend\WageFlow.Frontend\src\Files\Payments.pdf";
 
-            document.SaveAs2(@"C:\Users\User\OneDrive\Desktop\WageFlow_Fullstack\WageFlow.Frontend\WageFlow.Frontend\src\Files\Payments.pdf", Word.WdExportFormat.wdExportFormatPDF);
+            document.ExportAsFixedFormat(pdfPath, Word.WdExportFormat.wdExportFormatPDF);
+
+            document.Close(false);
+            PaymentsApplicationPDF.Quit();
+
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = pdfPath,
+                UseShellExecute = true
+            });
         }
     }
 }
