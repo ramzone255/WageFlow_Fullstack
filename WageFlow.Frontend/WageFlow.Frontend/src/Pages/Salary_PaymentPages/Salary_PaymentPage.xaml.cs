@@ -136,6 +136,14 @@ namespace WageFlow.Frontend.src.Pages.Salary_PaymentPages
                     .IndexOf(TbSerch.Text, StringComparison.OrdinalIgnoreCase) >= 0);
             }
 
+            if (DateFilter.SelectedDate.HasValue)
+            {
+                var selectedDate = DateFilter.SelectedDate.Value;
+                filtered = filtered.Where(x =>
+                    x.date_salary_payment.Month == selectedDate.Month &&
+                    x.date_salary_payment.Year == selectedDate.Year);
+            }
+
             Salary_PaymentListView.ItemsSource = filtered.ToList();
         }
 
@@ -144,10 +152,36 @@ namespace WageFlow.Frontend.src.Pages.Salary_PaymentPages
             ApplyFilters();
         }
 
+        private void DateFilter_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ApplyFilters();
+        }
+
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
+            DateFilter.SelectedDate = null;
             TbSerch.Clear();
+            TotalAmountText.Text = null;
+            TaxText.Text = null;
+            PensionText.Text = null;
+            FinalAmountText.Text = null;
             ApplyFilters();
+        }
+
+        private void CalculateSummary_Click(object sender, RoutedEventArgs e)
+        {
+            var visibleItems = Salary_PaymentListView.ItemsSource as IEnumerable<Salary_Payment>;
+            if (visibleItems == null) return;
+
+            decimal totalAmount = (decimal)visibleItems.Sum(p => p.amount_salary_payment);
+            decimal tax = totalAmount * 0.13m;
+            decimal pension = totalAmount * 0.22m;
+            decimal finalAmount = totalAmount - tax - pension;
+
+            TotalAmountText.Text = $"{totalAmount:N0}";
+            TaxText.Text = $"{tax:N0}";
+            PensionText.Text = $"{pension:N0}";
+            FinalAmountText.Text = $"{finalAmount:N0}";
         }
 
         private void ExcelClick(object sender, RoutedEventArgs e)
@@ -194,64 +228,52 @@ namespace WageFlow.Frontend.src.Pages.Salary_PaymentPages
         private async void WordClick(object sender, RoutedEventArgs e)
         {
             _allSalary_Payment = await _apiService.GetSalary_PaymentList();
-            var Salary_PaymentInPDF = _allSalary_Payment;
 
-            var Salary_PaymentApplicationPDF = new Word.Application();
+            var groupedPayments = _allSalary_Payment
+                .GroupBy(p => new { p.lastname_staff, p.name_staff, p.patronymic_staff })
+                .ToList();
 
-            Word.Document document = Salary_PaymentApplicationPDF.Documents.Add();
+            var wordApp = new Word.Application();
+            Word.Document document = wordApp.Documents.Add();
 
-            Word.Paragraph empParagraph = document.Paragraphs.Add();
-            Word.Range empRange = empParagraph.Range;
-            empRange.Text = "Salary_Payment";
-            empRange.Font.Bold = 4;
-            empRange.Font.Italic = 4;
-            empRange.Font.Color = Word.WdColor.wdColorBlack;
-            empRange.InsertParagraphAfter();
-
-            Word.Paragraph tableParagraph = document.Paragraphs.Add();
-            Word.Range tableRange = tableParagraph.Range;
-            Word.Table paymentsTable = document.Tables.Add(tableRange, Salary_PaymentInPDF.Count() + 1, 5);
-            paymentsTable.Borders.InsideLineStyle = paymentsTable.Borders.OutsideLineStyle = Word.WdLineStyle.wdLineStyleSingle;
-            paymentsTable.Range.Cells.VerticalAlignment = Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
-
-            Word.Range cellRange;
-
-            cellRange = paymentsTable.Cell(1, 1).Range;
-            cellRange.Text = "Фамилия";
-            cellRange = paymentsTable.Cell(1, 2).Range;
-            cellRange.Text = "Имя";
-            cellRange = paymentsTable.Cell(1, 3).Range;
-            cellRange.Text = "Отчество";
-            cellRange = paymentsTable.Cell(1, 4).Range;
-            cellRange.Text = "Сумма выплаты (₽)";
-            cellRange = paymentsTable.Cell(1, 5).Range;
-            cellRange.Text = "Дата выплаты";
-
-
-            paymentsTable.Rows[1].Range.Bold = 1;
-            paymentsTable.Rows[1].Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
-
-            for (int i = 0; i < Salary_PaymentInPDF.Count(); i++)
+            foreach (var group in groupedPayments)
             {
-                var ProductCurrent = Salary_PaymentInPDF[i];
+                var fullName = $"{group.Key.lastname_staff} {group.Key.name_staff} {group.Key.patronymic_staff}";
 
-                cellRange = paymentsTable.Cell(i + 2, 1).Range;
-                cellRange.Text = ProductCurrent.lastname_staff;
+                // Заголовок
+                Word.Paragraph empParagraph = document.Paragraphs.Add();
+                Word.Range empRange = empParagraph.Range;
+                empRange.Text = $"Сотрудник: {fullName}";
+                empRange.Font.Bold = 1;
+                empRange.Font.Size = 14;
+                empRange.InsertParagraphAfter();
 
-                cellRange = paymentsTable.Cell(i + 2, 2).Range;
-                cellRange.Text = ProductCurrent.name_staff;
+                // Таблица
+                Word.Paragraph tableParagraph = document.Paragraphs.Add();
+                Word.Range tableRange = tableParagraph.Range;
 
-                cellRange = paymentsTable.Cell(i + 2, 3).Range;
-                cellRange.Text = ProductCurrent.patronymic_staff;
+                Word.Table paymentsTable = document.Tables.Add(tableRange, group.Count() + 1, 2);
+                paymentsTable.Borders.InsideLineStyle = paymentsTable.Borders.OutsideLineStyle = Word.WdLineStyle.wdLineStyleSingle;
+                paymentsTable.Range.Cells.VerticalAlignment = Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
 
-                cellRange = paymentsTable.Cell(i + 2, 4).Range;
-                cellRange.Text = ProductCurrent.amount_salary_payment.ToString();
+                paymentsTable.Cell(1, 1).Range.Text = "Сумма выплаты (₽)";
+                paymentsTable.Cell(1, 2).Range.Text = "Дата выплаты";
+                paymentsTable.Rows[1].Range.Bold = 1;
+                paymentsTable.Rows[1].Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
 
-                cellRange = paymentsTable.Cell(i + 2, 5).Range;
-                cellRange.Text = ProductCurrent.date_salary_payment.ToString();
+                int rowIndex = 2;
+                foreach (var payment in group)
+                {
+                    paymentsTable.Cell(rowIndex, 1).Range.Text = payment.amount_salary_payment.ToString();
+                    paymentsTable.Cell(rowIndex, 2).Range.Text = payment.date_salary_payment.ToShortDateString();
+                    rowIndex++;
+                }
+
+                // Пробел между таблицами
+                document.Paragraphs.Add();
             }
 
-            Salary_PaymentApplicationPDF.Visible = true;
+            wordApp.Visible = true;
 
             document.SaveAs2(@"C:\Users\User\OneDrive\Desktop\WageFlow_Fullstack\WageFlow.Frontend\WageFlow.Frontend\src\Files\Salary_Payment.docx");
         }

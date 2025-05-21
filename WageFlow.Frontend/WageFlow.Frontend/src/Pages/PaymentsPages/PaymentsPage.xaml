@@ -37,7 +37,7 @@
                     <Image Source="/src/Images/Staff_Img.png"/>
                     <Button.ToolTip>
                         <ToolTip Height="30" Style="{StaticResource RoundToolsTemplate}">
-                            ㅤㅤВыплаты
+                            ㅤㅤСотрудники
                         </ToolTip>
                     </Button.ToolTip>
                 </Button>
@@ -78,7 +78,10 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Column="1" Background="White">
-            <ListView x:Name="PaymentsListView" Margin="10" Height="300">
+            <StackPanel Height="20">
+                <TextBlock Text="Страница выплат (Премирование/Депремирование)" FontSize="16" FontStyle="Italic" TextAlignment="Center"/>
+            </StackPanel>
+            <ListView x:Name="PaymentsListView" Margin="10" Height="280">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding lastname_staff}" Width="92"/>

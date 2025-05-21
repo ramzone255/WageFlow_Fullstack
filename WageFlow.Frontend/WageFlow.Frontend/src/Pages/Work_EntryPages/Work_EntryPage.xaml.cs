@@ -53,6 +53,20 @@ namespace WageFlow.Frontend.src.Pages.Work_EntryPages
                 CmbWork_Type.ItemsSource = _allWork_Type.ToList();
                 CmbWork_Type.SelectedValuePath = "id_work_type";
                 CmbWork_Type.DisplayMemberPath = "name_work_type";
+
+                string name_postUser = UserSession.CurrentUser.name_post;
+                if (name_postUser == "Сотрудник")
+                {
+                    AddButton.Visibility = Visibility.Hidden;
+                    UpdateButton.Visibility = Visibility.Hidden;
+                    DeleteButton.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    AddButton.Visibility = Visibility.Visible;
+                    UpdateButton.Visibility = Visibility.Visible;
+                    DeleteButton.Visibility = Visibility.Visible;
+                }
             }
             catch (Exception ex)
             {

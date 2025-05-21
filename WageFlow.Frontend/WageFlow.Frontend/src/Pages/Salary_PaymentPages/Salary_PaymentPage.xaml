@@ -78,7 +78,10 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Column="1" Background="White">
-            <ListView x:Name="Salary_PaymentListView" Margin="10" Height="300">
+            <StackPanel Height="20">
+                <TextBlock Text="Страница заработных отчетов" FontSize="16" FontStyle="Italic" TextAlignment="Center"/>
+            </StackPanel>
+            <ListView x:Name="Salary_PaymentListView" Margin="10" Height="230">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding lastname_staff}" Width="112"/>
@@ -89,6 +92,27 @@
                     </GridView>
                 </ListView.View>
             </ListView>
+            <StackPanel Height="50" Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Margin="10,0,0,0">
+                        <TextBlock FontStyle="Italic" FontWeight="Heavy" Text="Сумма" Width="100" TextAlignment="Center"/>
+                        <TextBlock FontStyle="Italic" FontWeight="Heavy" x:Name="TotalAmountText" Width="100" Margin="10,0"/>
+                    </StackPanel>
+                    <StackPanel Margin="10,0,0,0">
+                        <TextBlock FontStyle="Italic" FontWeight="Heavy" Text="Подоходный налог" Width="120" TextAlignment="Center"/>
+                        <TextBlock FontStyle="Italic" FontWeight="Heavy" x:Name="TaxText" Width="120" Margin="10,0"/>
+                    </StackPanel>
+                    <StackPanel Margin="10,0,0,0">
+                        <TextBlock FontStyle="Italic" FontWeight="Heavy" Text="Пенсионный взнос" Width="120" TextAlignment="Center"/>
+                        <TextBlock FontStyle="Italic" FontWeight="Heavy" x:Name="PensionText" Width="120" Margin="10,0"/>
+                    </StackPanel>
+                    <StackPanel Margin="10,0,0,0">
+                        <TextBlock FontStyle="Italic" FontWeight="Heavy" Text="Сумма к выплате" Width="120" TextAlignment="Center"/>
+                        <TextBlock FontStyle="Italic" FontWeight="Heavy" x:Name="FinalAmountText" Width="120" Margin="10,0"/>
+                    </StackPanel>
+                </StackPanel>
+                <Button Foreground="Black" FontWeight="Medium" FontStyle="Italic" Width="120" Height="30" Content="Подсчитать" Click="CalculateSummary_Click" Margin="10,0,0,0"/>
+            </StackPanel>
             <StackPanel Height="83" Orientation="Horizontal">
                 <StackPanel.Background>
                     <LinearGradientBrush StartPoint="0,0"
@@ -125,13 +149,14 @@
                 </StackPanel>
                 <StackPanel Height="83" Width="362" Orientation="Horizontal">
                     <StackPanel Height="83" Width="181">
-                        <TextBox x:Name="TbSerch" Height="25" FontSize="16" Width="150" BorderThickness="2" BorderBrush="Black" Margin="0,27,0,0" TextChanged="TbSerch_TextChanged">
+                        <TextBox x:Name="TbSerch" Height="25" FontSize="16" Width="150" BorderThickness="2" BorderBrush="Black" Margin="0,10,0,0" TextChanged="TbSerch_TextChanged">
                             <TextBox.ToolTip>
                                 <ToolTip Height="30" Style="{StaticResource RoundToolsTemplate}">
                                     ㅤПоиск по фамилии
                                 </ToolTip>
                             </TextBox.ToolTip>
                         </TextBox>
+                        <DatePicker x:Name="DateFilter" SelectedDateChanged="DateFilter_SelectedDateChanged" Height="25" Width="150" Margin="0,10,0,0"/>
                     </StackPanel>
                     <StackPanel Height="83" Width="181">
                         <Button Height="25" Width="100"

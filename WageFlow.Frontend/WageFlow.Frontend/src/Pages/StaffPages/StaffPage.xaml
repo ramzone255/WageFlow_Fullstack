@@ -78,7 +78,10 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Column="1" Background="White">
-            <ListView x:Name="StaffListView" Margin="10" Height="300">
+            <StackPanel Height="20">
+                <TextBlock Text="Страница сотрудников" FontSize="16" FontStyle="Italic" TextAlignment="Center"/>
+            </StackPanel>
+            <ListView x:Name="StaffListView" Margin="10" Height="280">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding lastname_staff}" Width="112"/>
