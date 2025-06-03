@@ -173,6 +173,14 @@ namespace WageFlow.Frontend.src.Pages.PaymentsPages
             worksheet.Cells[indexRows, 7] = "Сумма (₽)";
             worksheet.Cells[indexRows, 8] = "Дата";
 
+            Excel.Range range = worksheet.Range[
+                            worksheet.Cells[indexRows, 1],
+                            worksheet.Cells[indexRows, 6]
+                        ];
+            range.Font.Bold = true;
+
+            indexRows++;
+
             var printItems = PaymentsListView.Items;
 
             foreach (Payments item in printItems)
@@ -188,9 +196,6 @@ namespace WageFlow.Frontend.src.Pages.PaymentsPages
 
                 indexRows++;
             }
-            Excel.Range range = worksheet.Range[
-                worksheet.Cells[1, 1],
-                    worksheet.Cells[indexRows, 8]];
 
             range.ColumnWidth = 20;
 

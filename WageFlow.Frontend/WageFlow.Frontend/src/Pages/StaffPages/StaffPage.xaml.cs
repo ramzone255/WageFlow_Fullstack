@@ -181,6 +181,14 @@ namespace WageFlow.Frontend.src.Pages.StaffPages
             worksheet.Cells[indexRows, 5] = "Почта";
             worksheet.Cells[indexRows, 6] = "Должность";
 
+            Excel.Range range = worksheet.Range[
+                            worksheet.Cells[indexRows, 1],
+                            worksheet.Cells[indexRows, 6]
+                        ];
+            range.Font.Bold = true;
+
+            indexRows++;
+
             var printItems = StaffListView.Items;
 
             foreach (Staff item in printItems)
@@ -194,9 +202,6 @@ namespace WageFlow.Frontend.src.Pages.StaffPages
 
                 indexRows++;
             }
-            Excel.Range range = worksheet.Range[
-                worksheet.Cells[1, 1],
-                    worksheet.Cells[indexRows, 6]];
 
             range.ColumnWidth = 20;
 

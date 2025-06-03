@@ -178,10 +178,10 @@ namespace WageFlow.Frontend.src.Pages.Salary_PaymentPages
             decimal pension = totalAmount * 0.22m;
             decimal finalAmount = totalAmount - tax - pension;
 
-            TotalAmountText.Text = $"{totalAmount:N0}";
-            TaxText.Text = $"{tax:N0}";
-            PensionText.Text = $"{pension:N0}";
-            FinalAmountText.Text = $"{finalAmount:N0}";
+            TotalAmountText.Text = $"{totalAmount:N2}";
+            TaxText.Text = $"{tax:N2}";
+            PensionText.Text = $"{pension:N2}";
+            FinalAmountText.Text = $"{finalAmount:N2}";
         }
 
         private void ExcelClick(object sender, RoutedEventArgs e)
@@ -201,6 +201,14 @@ namespace WageFlow.Frontend.src.Pages.Salary_PaymentPages
             worksheet.Cells[indexRows, 5] = "Сумма выплаты (₽)";
             worksheet.Cells[indexRows, 6] = "Дата выплаты";
 
+            Excel.Range range = worksheet.Range[
+                            worksheet.Cells[indexRows, 1],
+                            worksheet.Cells[indexRows, 6]
+                        ];
+                        range.Font.Bold = true;
+            
+            indexRows++;
+
             var printItems = Salary_PaymentListView.Items;
 
             foreach (Salary_Payment item in printItems)
@@ -214,9 +222,8 @@ namespace WageFlow.Frontend.src.Pages.Salary_PaymentPages
 
                 indexRows++;
             }
-            Excel.Range range = worksheet.Range[
-                worksheet.Cells[1, 1],
-                    worksheet.Cells[indexRows, 6]];
+
+            
 
             range.ColumnWidth = 20;
 

@@ -95,20 +95,20 @@
             <StackPanel Height="50" Orientation="Horizontal">
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Margin="10,0,0,0">
-                        <TextBlock FontStyle="Italic" FontWeight="Heavy" Text="Сумма" Width="100" TextAlignment="Center"/>
+                        <TextBlock FontStyle="Italic" FontWeight="Heavy" Text="Сумма (₽)" Width="100" TextAlignment="Center"/>
                         <TextBlock FontStyle="Italic" FontWeight="Heavy" x:Name="TotalAmountText" Width="100" Margin="10,0"/>
                     </StackPanel>
                     <StackPanel Margin="10,0,0,0">
-                        <TextBlock FontStyle="Italic" FontWeight="Heavy" Text="Подоходный налог" Width="120" TextAlignment="Center"/>
-                        <TextBlock FontStyle="Italic" FontWeight="Heavy" x:Name="TaxText" Width="120" Margin="10,0"/>
+                        <TextBlock FontStyle="Italic" FontWeight="Heavy" Text="Подоходный налог (₽)" Width="140" TextAlignment="Center"/>
+                        <TextBlock FontStyle="Italic" FontWeight="Heavy" x:Name="TaxText" Width="140"/>
+                    </StackPanel>
+                    <StackPanel Margin="10,0,0,0" Width="140">
+                        <TextBlock FontStyle="Italic" FontWeight="Heavy" Text="Пенсионный взнос (₽)" Width="140" TextAlignment="Center"/>
+                        <TextBlock FontStyle="Italic" FontWeight="Heavy" x:Name="PensionText" Width="140"/>
                     </StackPanel>
                     <StackPanel Margin="10,0,0,0">
-                        <TextBlock FontStyle="Italic" FontWeight="Heavy" Text="Пенсионный взнос" Width="120" TextAlignment="Center"/>
-                        <TextBlock FontStyle="Italic" FontWeight="Heavy" x:Name="PensionText" Width="120" Margin="10,0"/>
-                    </StackPanel>
-                    <StackPanel Margin="10,0,0,0">
-                        <TextBlock FontStyle="Italic" FontWeight="Heavy" Text="Сумма к выплате" Width="120" TextAlignment="Center"/>
-                        <TextBlock FontStyle="Italic" FontWeight="Heavy" x:Name="FinalAmountText" Width="120" Margin="10,0"/>
+                        <TextBlock FontStyle="Italic" FontWeight="Heavy" Text="Сумма к выплате (₽)" Width="140" TextAlignment="Center"/>
+                        <TextBlock FontStyle="Italic" FontWeight="Heavy" x:Name="FinalAmountText" Width="140"/>
                     </StackPanel>
                 </StackPanel>
                 <Button Foreground="Black" FontWeight="Medium" FontStyle="Italic" Width="120" Height="30" Content="Подсчитать" Click="CalculateSummary_Click" Margin="10,0,0,0"/>
